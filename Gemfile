@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
 gem "rails",           "3.2.11"
-gem "jquery-rails"
+gem "jquery-rails", "2.1.4"
 gem "jquery_datepicker"
 
 # replaces WebRick to get rid of the content length warnings. See
@@ -62,7 +62,9 @@ end
 
 # gems required for OMR
 group :pest do
-  gem "gtk2", "~> 1.1.5"
+  gem "pkg-config", "1.1.5"
+  gem "cairo", "1.12.2"
+  gem "glib2", "3.0.8"
+  gem "gtk2", "1.1.5"
   gem "rmagick", :require => "RMagick"
 end
-

@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(:version => 20130110093720) do
   create_table "c_pics", :force => true do |t|
     t.string   "basename"
     t.integer  "course_prof_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.string   "source"
     t.text     "text"
     t.integer  "step"
@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(:version => 20130110093720) do
     t.integer  "old_form_i"
     t.string   "evaluator"
     t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.text     "summary"
     t.string   "fscontact"
     t.integer  "form_id"
@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(:version => 20130110093720) do
 
   create_table "faculties", :force => true do |t|
     t.string   "longname"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "shortname"
   end
 
@@ -57,15 +57,15 @@ ActiveRecord::Schema.define(:version => 20130110093720) do
     t.integer  "term_id"
     t.string   "name"
     t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "pics", :force => true do |t|
     t.integer  "tutor_id"
     t.string   "basename"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "source"
     t.text     "text"
     t.integer  "step"
@@ -76,8 +76,8 @@ ActiveRecord::Schema.define(:version => 20130110093720) do
     t.string   "surname"
     t.string   "email"
     t.integer  "gender"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "sessions", :force => true do |t|
@@ -95,8 +95,8 @@ ActiveRecord::Schema.define(:version => 20130110093720) do
     t.date     "firstday"
     t.date     "lastday"
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.boolean  "critical"
     t.string   "longtitle"
   end
@@ -104,8 +104,8 @@ ActiveRecord::Schema.define(:version => 20130110093720) do
   create_table "tutors", :force => true do |t|
     t.integer  "course_id"
     t.string   "abbr_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.text     "comment"
   end
 
