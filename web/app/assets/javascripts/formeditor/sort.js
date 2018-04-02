@@ -11,12 +11,13 @@
  * @param enable  if the buttons should be shown/hidden. */
 FormEditor.prototype.toggleSorting = function(enable) {
   enable = enable === undefined || enable === null ? $("#sort").is(":visible") : enable;
+  console.log(enable);
   if(enable) {
     this.makeQuestionsSortable();
     $("#sort").hide();
     $(".move, .movedown, .moveup, #cancel-sort").show();
   } else {
-    $(".sortable-question").sortable("disable");
+    //$(".sortable-question").sortable("disable");
     $("#sort").show();
     $(".move, .movedown, .moveup, #cancel-sort").hide();
   }
