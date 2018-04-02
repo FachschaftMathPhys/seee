@@ -40,7 +40,7 @@ module FormsHelper
     exitcodes << $?.to_i
     exitcodes << (File.exists?("#{path}.pdf") ? 0 : 1)
 
-    if exitcodes.total == 0
+    if File.exists?("#{path}.pdf")
       header("Converting PDF to PNG", logger)
 
       # this first converts the PDF to a series of images and passes
@@ -49,7 +49,7 @@ module FormsHelper
       # are combined into one large PNG that is saved to disk (getting
       # it directly via stdout is too slow)
       c = Seee::Config.application_paths[:convert]
-      cmd = "#{c} -density 100 \"#{path}.pdf\" MIFF:- | \
+      cmd = "#{c} -density 100 \"#{path}.pdf\" +profile \"*\" MIFF:- | \
 	     #{c} MIFF:- -frame 2x2+2 -bordercolor white -border 0x10 MIFF:- | \
 	     #{c} MIFF:-  -append \"#{path}.png\""
 
@@ -64,7 +64,7 @@ module FormsHelper
     # convert to base64
     dim = nil
     exitcodes << (File.exists?("#{path}.png") ? 0 : 1)
-    if exitcodes.total == 0
+    if File.exists?("#{path}.png")
       data = File.open("#{path}.png", 'rb') { |f| f.read }
       dim = FastImage.size("#{path}.png")
       base64 = Base64.encode64(data)
@@ -74,7 +74,7 @@ module FormsHelper
     files = '"' + Dir.glob("#{path}*").join('" "') + '"'
     `rm -rf #{files}`
 
-    return exitcodes.total > 0, exitcodes, h(logger), base64, dim
+    return false, exitcodes, h(logger), base64, dim
   end
 
   def texpreview(text = nil)

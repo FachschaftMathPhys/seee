@@ -88,7 +88,7 @@ unless oosv.empty?
   </div>
 <% end %>
 
-<% if @form.has_questions_without_visualizer? %>
+<% if false %>
   <div>
     <h3>WARNING: questions without visualizer</h3>
     <table>
@@ -232,7 +232,7 @@ unless oosv.empty?
 <div id="ruby-yaml-code">
   <h3>Ruby-fied YAML Code</h3>
   <%= nav_links %>
-  <pre><%=(@form.is_a?(String) ? "wrong!"  : @form.pretty_abstract_form) %></pre>
+  <pre><%=(@form.is_a?(String) ? "wrong!"  : @form.to_yaml) %></pre>
 </div>
 
 <div>

@@ -254,7 +254,8 @@ def make_pdf_for(cp, dirname)
       cp.prof.gender,
       cp.course.tutors.sort{ |a,b| a.id <=> b.id }.map{ |t| t.abbr_name },
       cp.term.title,
-      cp.barcode)
+      cp.barcode,
+      cp.course.students)
   end
 
   # generate PDF
@@ -331,7 +332,7 @@ def pdf_crop_tex(pdffile, dir = "./", give_error = false)
     h << "\\csname @@end\\endcsname\n"
     h << "\\end\n"
   end
-  `cd "#{dir}" && #{Seee::Config.application_paths[:pdftex]} -halt-on-error cropped.tex`
+  `cd "#{dir}" && #{Seee::Config.application_paths[:pdftex]} cropped.tex`
   if $?.exitstatus != 0
     puts "Could not crop \"#{File.basename(pdffile)}\". Try to remove spaces or {} chars in the path+filename if any. Specifiying a working *pdftex* command in the config might work as well."
     puts `cat #{dir}cropped.log`

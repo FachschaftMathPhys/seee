@@ -506,7 +506,8 @@ class AbstractForm
                 "Joe Bloggs", "John Doe", "Stefan ist doof",
                 "Beccy ist doof"],
       term    = "the same term as last year",
-      barcode = "00000000")
+      barcode = "00000000",
+      count =1)
 
     # in case someone didn’t give us symbols
     lang, gender = lang.to_sym, gender.to_sym
@@ -532,7 +533,7 @@ class AbstractForm
     # instead.
     tex << "\\setTutor{#{I18n.t(:tutor)}}\n"
     tex << "\\setMyTutor{#{I18n.t(:my_tutor)}}\n"
-
+    tex << "\\setboolean{writePosOut}{true}\n"
     # tutors
     tutors.collect! { |t| t.escape_for_tex }
     tex << "\\tutors{\n  "
@@ -545,11 +546,24 @@ class AbstractForm
 
     tex << get_texhead(lang) + "\n"
     tex << "\\begin{document}\n"
-    tex << tex_header(lang, gender, barcode) + "\n\n\n"
+    tex << "\\newcommand{\\questionaire}[2]{"
+    tex << "\\sheetID{#2}"
+    tex << tex_header(lang, gender) + "\n\n\n"
     tex << tex_questions(lang, gender) + "\n"
     tex << get_texfoot(lang) + "\n"
+    tex << "\\cleardoublepage
+\\ifodd\\value{page}
+\\newpage
+\\fi\\setcounter{section}{0}\n
+\\def\\wPosout{\\write\\postwo}\n
+\\setcounter{page}{1}}\n"
+    tex << "\\newcounter{sheet}\n"
+    tex << "\\forloop{sheet}{1}{\\value{sheet}<#{count +1}}\n"
+    tex <<"{\n"
+    tex<<"\\questionaire{#{barcode}}{\\arabic{sheet}}\n"
+    tex << "}\n"
     tex << "\\end{document}"
-
+    File.open("/home/henrik/output.tex","w"){|file| file.write(tex)}
     tex
   end
 
@@ -572,9 +586,9 @@ class AbstractForm
   end
 
   # builds the tex header for the form
-  def tex_header(lang, gender, barcode)
+  def tex_header(lang, gender)
     # writes yaml header on texing
-    s = "\\head{#{title(lang)}}{#{barcode}}\n\n"
+    s = "\\head{#{title(lang)}}{#1}\n\n"
     s << "#{intro(lang)}\n\n"
     s << "\\vspace{0.8mm}"
     s << "\\dataline{#{I18n.t(:title)}}"

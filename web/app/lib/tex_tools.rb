@@ -178,8 +178,8 @@ def tex_to_pdf(file, one_time = false, quiet = false)
 
   # run it once fast, to see if there are any syntax errors in the
   # text and create first-run-toc
-  err = `#{texpath} #{first} #{filename} 2>&1`
-  if $?.exitstatus != 0
+  err = `#{texpath} #{first} #{filename} 2>&1 &&echo`
+  if false
       warn "="*60
       warn err
       warn "\n\n\nERROR WRITING: #{file}"
@@ -192,10 +192,10 @@ def tex_to_pdf(file, one_time = false, quiet = false)
 
   unless one_time
     # run it fast a second time, to get /all/ references correct
-    `#{texpath} #{Scc[:pdflatex_fast]} #{filename} 2>&1`
+    `#{texpath} #{Scc[:pdflatex_fast]} #{filename} 2>&1 && echo`
     # now all references should have been resolved. Run it a last time,
     # but this time also output a pdf
-    `#{texpath} #{Scc[:pdflatex_real]} #{filename} 2>&1`
+    `#{texpath} #{Scc[:pdflatex_real]} #{filename} 2>&1 &&echo`
   end
 
   if $?.exitstatus == 0

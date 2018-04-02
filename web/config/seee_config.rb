@@ -72,7 +72,7 @@ module Seee
 
     @@application_paths = {
       :hunspell => 'hunspell',
-      :pdflatex => 'pdflatex',
+      :pdflatex => 'xelatex -interaction=nonstopmode',
       # point this to the script you use to import pages as 2-sided tif
       # images. Either name them ".tif" (NOT tif_f_) if you want them to
       # be recognized or send patches :)
@@ -191,7 +191,7 @@ module Seee
 
       :pdflatex => "TEXMFHOME=#{@@file_paths[:texmfdir]} #{@@application_paths[:pdflatex]}",
 
-      :xelatex => "#{@@application_paths[:xelatex]} -halt-on-error -file-line-error -interaction=nonstopmode",
+      :xelatex => "#{@@application_paths[:xelatex]}  -interaction=nonstopmode",
 
       # disable unused barcodes and disable scanning in x-direction to speed up processing.
       :zbar => "#{@@application_paths[:zbar]} --set ean13.disable=1 --set upce.disable=1 --set isbn10.disable=1 --set upca.disable=1 --set isbn13.disable=1 --set i25.disable=1 --set code39.disable=1 --set code128.disable=1 --set y-density=4 --set x-density=0 "
@@ -207,8 +207,8 @@ module Seee
       #             syntax-checking and toc-creation
       # -interaction=nonstopmode prevents from asking for stuff on the
       #             console which regularily occurs for missing packages
-      :pdflatex_fast => "#{@@commands[:pdflatex]} -halt-on-error -file-line-error -draftmode -interaction=nonstopmode",
-      :pdflatex_real => "#{@@commands[:pdflatex]} -halt-on-error -file-line-error"
+      :pdflatex_fast => "#{@@commands[:pdflatex]}  -draftmode -interaction=nonstopmode",
+      :pdflatex_real => "#{@@commands[:pdflatex]} "
     })
 
     # fall back to application_paths if a command
