@@ -15,6 +15,14 @@ class ActiveSupport::TestCase
 end
 
 require "strip_attributes/shoulda"
-class Test::Unit::TestCase
-  extend StripAttributes::Shoulda::Macros
+module Test
+  module Unit
+    class TestCase
+      extend StripAttributes::Shoulda::Macros
+    end
+  end
+end
+require "strip_attributes/matchers"
+class ActiveSupport::TestCase
+  include StripAttributes::Matchers
 end

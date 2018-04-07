@@ -45,7 +45,7 @@ Seee::Application.configure do
   # config.log_tags = [ :subdomain, :uuid ]
 
   # Use a different logger for distributed setups
-  # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
+  config.logger = ActiveSupport::Logger.new('your_app.log')
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
@@ -55,7 +55,7 @@ Seee::Application.configure do
 
   # The following files are not included in the application.{css,js} files. List
   # them here so they get precompiled for production.
-  config.assets.precompile += %w(small_screen.css js-yaml.min.js json2yaml.js formeditor.js ace/*.js excanvas.js visualize.jQuery.js correlate.js aceify-textareas.js viewer_count.js hitme_comment_preview.js hitme_final_check.js)
+  config.assets.precompile += %w(small_screen.css js-yaml.min.js json2yaml.js formeditor.js ace/*.js visualize.jQuery.js correlate.js aceify-textareas.js viewer_count.js hitme_comment_preview.js hitme_final_check.js)
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false

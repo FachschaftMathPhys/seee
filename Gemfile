@@ -1,9 +1,9 @@
 source "http://rubygems.org"
 
-gem "rails",           "3.2.11"
-gem "jquery-rails", "2.1.4"
-gem "jquery_datepicker"
-
+gem "rails",           "4.0"
+gem "jquery-rails", "3.1.4"
+gem "jquery-ui-rails"
+gem 'bootstrap-datepicker-rails'
 # replaces WebRick to get rid of the content length warnings. See
 # http://stackoverflow.com/questions/9612618/
 # Also required for multithreaded Rails. See
@@ -25,13 +25,11 @@ end
 
 # Gems used only for assets and not required in production environments
 # by default.
-group :assets do
-  gem "sass-rails",   "~> 3.2.5"
-  gem "coffee-rails", "~> 3.2.2"
+  gem "sass-rails",   "~> 4.0"
+  gem "coffee-rails", "~> 4.0"
   gem "uglifier", ">= 1.0.3"
   gem "therubyracer"
   gem "yui-compressor"
-end
 
 group :test do
   gem "shoulda"
@@ -45,7 +43,7 @@ gem "rails-dbi", :require => "dbi"
 gem "mysql2"
 gem "dbd-mysql"
 
-gem "pg"
+gem "pg", "~> 0.18"
 gem "dbd-pg"
 
 # intended for debugging, but allow for production as well
@@ -65,6 +63,6 @@ group :pest do
   gem "pkg-config", "1.1.5"
   gem "cairo", "1.12.2"
   gem "glib2", "3.0.8"
-  gem "gtk2", "1.1.5"
+  gem "gtk2"
   gem "rmagick", :require => "RMagick"
 end

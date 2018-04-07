@@ -23,3 +23,4 @@
 //= require jquery.numeric
 //= require jquery.autosize
 //= require prevent-leaving-unsaved-form
+//= require bootstrap-datepicker

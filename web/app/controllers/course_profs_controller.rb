@@ -2,7 +2,7 @@
 
 class CourseProfsController < ApplicationController
   def print
-    @cp = CourseProf.find(params[:id])
+    @cp = CourseProf.find(cp_params)
     if @cp.print_in_progress?
       flash[:warning] = "Printing already in progress. Can’t you be patient?"
     elsif @cp.returned_sheets?
@@ -19,5 +19,9 @@ class CourseProfsController < ApplicationController
 
     # redirect back to course
     redirect_to(@cp.course)
+  end
+  private
+  def cp_params
+    params.require(:id)
   end
 end

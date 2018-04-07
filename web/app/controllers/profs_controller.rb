@@ -4,7 +4,7 @@ class ProfsController < ApplicationController
   # GET /profs
   # GET /profs.xml
   def index
-    @profs = Prof.find(:all, :order => [:surname, :firstname])
+    @profs = Prof.order([:surname, :firstname])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +15,7 @@ class ProfsController < ApplicationController
   # GET /profs/1
   # GET /profs/1.xml
   def show
-    @prof = Prof.find(params[:id])
+    @prof = Prof.find(prof_params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -36,13 +36,13 @@ class ProfsController < ApplicationController
 
   # GET /profs/1/edit
   def edit
-    @prof = Prof.find(params[:id])
+    @prof = Prof.find(prof_params[:id])
   end
 
   # POST /profs
   # POST /profs.xml
   def create
-    @prof = Prof.new(params[:prof])
+    @prof = Prof.new(prof_params[:prof])
 
     respond_to do |format|
       if @prof.save
@@ -59,9 +59,9 @@ class ProfsController < ApplicationController
   # PUT /profs/1
   # PUT /profs/1.xml
   def update
-    @prof = Prof.find(params[:id])
+    @prof = Prof.find(prof_params[:id])
     respond_to do |format|
-      if @prof.update_attributes(params[:prof])
+      if @prof.update_attributes(prof_params[:prof])
         flash[:notice] = "Prof '#{@prof.firstname} #{@prof.surname}' was successfully updated."
         format.html { redirect_to(profs_url) }
         format.xml  { head :ok }
@@ -75,7 +75,7 @@ class ProfsController < ApplicationController
   # DELETE /profs/1
   # DELETE /profs/1.xml
   def destroy
-    @prof = Prof.find(params[:id])
+    @prof = Prof.find(prof_params[:id])
     @prof.destroy unless @prof.critical?
 
     respond_to do |format|
@@ -83,5 +83,9 @@ class ProfsController < ApplicationController
       format.html { redirect_to(profs_url) }
       format.xml  { head :ok }
     end
+  end
+  private
+  def prof_params
+    params.permit!# unsafe, but hey it is the fachschaft
   end
 end

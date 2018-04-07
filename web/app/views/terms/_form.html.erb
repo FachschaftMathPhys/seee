@@ -1,11 +1,15 @@
 <%= render "shared/error_messages", :model => @term %>
-
 <%= form_for(@term) do |f| %>
   <table>
     <% for item in
       [
-        ["Firstday",                      f.datepicker(:firstday, :dateFormat => "yy-mm-dd"), "required"],
-        ["Lastday",                       f.datepicker(:lastday,  :dateFormat => "yy-mm-dd"), "required"],
+        ["Timespan",content_tag( :div,:class=>"input-group input-daterange") do
+            datepicker_input(f,:firstday)+
+            content_tag( :div,:class=>"input-group-addon") do
+              "to"
+            end+
+            datepicker_input(f,:lastday)
+        end, "required"],
         [f.label(:title),                 f.text_field(:title),                               "required"],
         [f.label(:longtitle),             f.text_field(:longtitle),                           "required"],
         [f.label(:critical, "Critical?"), f.check_box(:critical) + f.label(:critical, "the term is critical")]
@@ -22,7 +26,7 @@
 
   <p>
     <% text = {"edit" => "Save Changes", "new" => "Create new #{controller.human_name}"}[controller.action_name] %>
-    <%= f.submit text, :disable_with => "Saving…", :class => "button primary" %>
+    <%= f.submit text, data: { disable_with: 'Saving…' }, :class => "button primary" %>
     <%= link_to 'Cancel', terms_path, :class => "button" %>
   </p>
 <% end %>

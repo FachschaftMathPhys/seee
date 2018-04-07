@@ -4,7 +4,7 @@ class TermsController < ApplicationController
   # GET /terms
   # GET /terms.xml
   def index
-    @terms = Term.find(:all)
+    @terms = Term.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +15,7 @@ class TermsController < ApplicationController
   # GET /terms/1
   # GET /terms/1.xml
   def show
-    @term = Term.find(params[:id])
+    @term = Term.find(terms_params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -36,13 +36,13 @@ class TermsController < ApplicationController
 
   # GET /terms/1/edit
   def edit
-    @term = Term.find(params[:id])
+    @term = Term.find(terms_params[:id])
   end
 
   # POST /terms
   # POST /terms.xml
   def create
-    @term = Term.new(params[:term])
+    @term = Term.new(terms_params[:term])
 
     respond_to do |format|
       if @term.save
@@ -59,10 +59,10 @@ class TermsController < ApplicationController
   # PUT /terms/1
   # PUT /terms/1.xml
   def update
-    @term = Term.find(params[:id])
+    @term = Term.find(terms_params[:id])
 
     respond_to do |format|
-      if @term.update_attributes(params[:term])
+      if @term.update_attributes(terms_params[:term])
         flash[:notice] = 'Term was successfully updated.'
         format.html { redirect_to(terms_url) }
         format.xml  { head :ok }
@@ -76,7 +76,7 @@ class TermsController < ApplicationController
   # DELETE /terms/1
   # DELETE /terms/1.xml
   def destroy
-    @term = Term.find(params[:id])
+    @term = Term.find(terms_params[:id])
     d = @term.critical? || @term.courses.any?
     @term.destroy unless d
 
@@ -85,5 +85,9 @@ class TermsController < ApplicationController
       format.html { redirect_to(terms_url) }
       format.xml  { head :ok }
     end
+  end
+  private
+  def terms_params
+    params.permit!
   end
 end

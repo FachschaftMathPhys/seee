@@ -21,7 +21,7 @@
           <% if faculty.critical? %>
             Has associated courses. Cannot destroy.
           <% else %>
-            <%= link_to 'Destroy', faculty, :confirm => "Do you really want to DESTROY the faculty of #{faculty.longname}?", :method => :delete %>
+            <%= link_to 'Destroy', faculty, data:{confirm: "Do you really want to DESTROY the faculty of #{faculty.longname}?"}, :method => :delete %>
           <% end %>
         </td>
       </tr>

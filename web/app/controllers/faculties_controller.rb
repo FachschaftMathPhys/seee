@@ -4,7 +4,7 @@ class FacultiesController < ApplicationController
   # GET /faculties
   # GET /faculties.xml
   def index
-    @faculties = Faculty.find(:all)
+    @faculties = Faculty.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +15,7 @@ class FacultiesController < ApplicationController
   # GET /faculties/1
   # GET /faculties/1.xml
   def show
-    @faculty = Faculty.find(params[:id])
+    @faculty = Faculty.find(faculties_params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -36,13 +36,13 @@ class FacultiesController < ApplicationController
 
   # GET /faculties/1/edit
   def edit
-    @faculty = Faculty.find(params[:id])
+    @faculty = Faculty.find(faculties_params[:id])
   end
 
   # POST /faculties
   # POST /faculties.xml
   def create
-    @faculty = Faculty.new(params[:faculty])
+    @faculty = Faculty.new(faculties_params[:faculty])
 
     respond_to do |format|
       if @faculty.save
@@ -59,10 +59,10 @@ class FacultiesController < ApplicationController
   # PUT /faculties/1
   # PUT /faculties/1.xml
   def update
-    @faculty = Faculty.find(params[:id])
+    @faculty = Faculty.find(faculties_params[:id])
 
     respond_to do |format|
-      if @faculty.update_attributes(params[:faculty])
+      if @faculty.update_attributes(faculties_params[:faculty])
         flash[:notice] = 'Faculty was successfully updated.'
         format.html { redirect_to(faculties_url) }
         format.xml  { head :ok }
@@ -76,7 +76,7 @@ class FacultiesController < ApplicationController
   # DELETE /faculties/1
   # DELETE /faculties/1.xml
   def destroy
-    @faculty = Faculty.find(params[:id])
+    @faculty = Faculty.find(faculties_params[:id])
     @faculty.destroy unless @faculty.critical?
 
     respond_to do |format|
@@ -84,5 +84,9 @@ class FacultiesController < ApplicationController
       format.html { redirect_to(faculties_url) }
       format.xml  { head :ok }
     end
+  end
+  private
+  def faculties_params
+    params.permit!# unsafe
   end
 end

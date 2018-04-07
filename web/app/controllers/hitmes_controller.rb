@@ -45,8 +45,8 @@ class HitmesController < ApplicationController
       redirect_to :action => "overview"
     else
       # make collision detection happy
-      params[:controller] = @workon.class.to_s.pluralize.downcase
-      params[:id] = @workon.id
+      hitmes_params[:controller] = @workon.class.to_s.pluralize.downcase
+      hitmes_params[:id] = @workon.id
 
       @ident = precreate_session(@workon)
 
@@ -64,25 +64,25 @@ class HitmesController < ApplicationController
   # handles updating text and step for comment typing and proofreading.
   # automatically redirects the user according to the action chosen.
   def save_comment
-    x = case params[:type]
-      when "CPic" then CPic.find(params[:id])
-      when  "Pic" then Pic.find(params[:id])
+    x = case hitmes_params[:type]
+      when "CPic" then CPic.find(hitmes_params[:id])
+      when  "Pic" then Pic.find(hitmes_params[:id])
       else nil
     end
 
-    if params[:cancel] || x.nil?
+    if hitmes_params[:cancel] || x.nil?
       flash[:error] = "The comment image in question could not be found." if x.nil?
       redirect_to :action => "overview"
 
-    elsif params[:save_and_skip]
-      x.text = params[:text]
+    elsif hitmes_params[:save_and_skip]
+      x.text = hitmes_params[:text]
        # initialize step to 0, otherwise the validations might fail
       x.step ||= 0
       flash[:error] = "Your changes could not be saved. Please investigate." if not x.save
       redirect_to :action => "assign_work"
 
-    elsif params[:save_and_quit] || params[:save_and_work]
-      x.text = params[:text]
+    elsif hitmes_params[:save_and_quit] || hitmes_params[:save_and_work]
+      x.text = hitmes_params[:text]
 
       next_step = { nil => Hitme::PROOFREADING, Hitme::TYPING => Hitme::PROOFREADING, Hitme::PROOFREADING => Hitme::COMBINING }
       if next_step.keys.include?(x.step)
@@ -98,7 +98,7 @@ class HitmesController < ApplicationController
         flash[:error] = "Your changes could not be saved. Please investigate before continuing."
       end
 
-      redirect_to :action => params[:save_and_quit] ? "overview" : "assign_work"
+      redirect_to :action => hitmes_params[:save_and_quit] ? "overview" : "assign_work"
 
     else
       flash[:error] = "Invalid action given. Your comment was not saved."
@@ -110,23 +110,23 @@ class HitmesController < ApplicationController
 
 
   def save_combination
-    x = case params[:type]
-      when "Course" then Course.find(params[:id])
-      when "Tutor"  then Tutor.find(params[:id])
+    x = case hitmes_params[:type]
+      when "Course" then Course.find(hitmes_params[:id])
+      when "Tutor"  then Tutor.find(hitmes_params[:id])
       else nil
     end
 
-    if params[:cancel] || x.nil?
+    if hitmes_params[:cancel] || x.nil?
       flash[:error] = "Could not find course/tutor with given ID." if x.nil?
       redirect_to :action => "overview"
 
-    elsif params[:save_and_skip]
-      x.comment = params[:text]
+    elsif hitmes_params[:save_and_skip]
+      x.comment = hitmes_params[:text]
       flash[:error] = "Your combination/merge could not be saved. Please investigate." if not x.save
       redirect_to :action => "assign_work"
 
-    elsif params[:save_and_quit] || params[:save_and_work]
-      x.comment = params[:text]
+    elsif hitmes_params[:save_and_quit] || hitmes_params[:save_and_work]
+      x.comment = hitmes_params[:text]
 
       if x.save
         flash[:notice] = "Changes have been saved."
@@ -137,7 +137,7 @@ class HitmesController < ApplicationController
         flash[:error] = "Your changes could not be saved. Please investigate before continuing."
       end
 
-      redirect_to :action => params[:save_and_quit] ? "overview" : "assign_work"
+      redirect_to :action => hitmes_params[:save_and_quit] ? "overview" : "assign_work"
 
     else
       flash[:error] = "Invalid action given. Your comment was not saved."
@@ -149,13 +149,13 @@ class HitmesController < ApplicationController
 
 
   def save_final_check
-    course = Course.find(params[:id])
+    course = Course.find(hitmes_params[:id])
     errs = []
     step_warn = false
 
     errs << "Couldn’t find specified course. Saving failed." unless course
     if course
-      course.comment = params[:course]
+      course.comment = hitmes_params[:course]
       unless course.save
         errs << "Couldn’t save course."
       else
@@ -163,7 +163,7 @@ class HitmesController < ApplicationController
       end
     end
 
-    params[:tutor].each do |tut_id, text|
+    hitmes_params[:tutor].each do |tut_id, text|
       logger.info "Processing tutor=#{tut_id}"
       tutor = Tutor.find(tut_id)
       unless tutor
@@ -176,15 +176,15 @@ class HitmesController < ApplicationController
       else
         step_warn = true unless tutor.pics.update_all(:step => Hitme::DONE)
       end
-    end if params[:tutor]
+    end if hitmes_params[:tutor]
 
     remove_session(course)
 
     if errs.empty?
-      flash[:notice] = "Save successful." unless params[:save_and_skip]
-      if params[:save_and_skip] || params[:save_and_work]
+      flash[:notice] = "Save successful." unless hitmes_params[:save_and_skip]
+      if hitmes_params[:save_and_skip] || hitmes_params[:save_and_work]
         redirect_to :action => "assign_work"
-      else  # params[:save_and_quit] and others
+      else  # hitmes_params[:save_and_quit] and others
         redirect_to :action => "overview"
       end
     else
@@ -195,8 +195,8 @@ class HitmesController < ApplicationController
 
 
   def preview_text
-    text = params[:text]
-    text = params[:listify].to_s == "true" ? view_context.text_to_list(text) : text
+    text = hitmes_params[:text]
+    text = hitmes_params[:listify].to_s == "true" ? view_context.text_to_list(text) : text
     render :partial => "shared/preview", :locals => {
       :text => text,
       :disable_cache => true}
@@ -222,11 +222,15 @@ class HitmesController < ApplicationController
   end
 
   def remove_session(workon)
-    return unless workon && params[:ident]
+    return unless workon && hitmes_params[:ident]
     Session.unscoped.delete_all(
       :cont => workon.class.to_s.pluralize.downcase,
       :viewed_id => workon.id,
-      :ident => params[:ident]
+      :ident => hitmes_params[:ident]
     )
+  end
+  private
+  def hitmes_params
+    params.permit!
   end
 end

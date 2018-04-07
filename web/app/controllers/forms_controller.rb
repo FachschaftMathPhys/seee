@@ -4,7 +4,7 @@ class FormsController < ApplicationController
   # GET /forms
   # GET /forms.xml
   def index
-    @forms = Form.find(:all)
+    @forms = Form.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +15,7 @@ class FormsController < ApplicationController
   # GET /forms/1
   # GET /forms/1.xml
   def show
-    @form = Form.find(params[:id])
+    @form = Form.find(form_params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +24,7 @@ class FormsController < ApplicationController
   end
 
   def preview
-    @form = Form.find(params[:id])
+    @form = Form.find(form_params[:id])
     # this renders the small partial preview view only. shared/preview
     # will invoke form_helpers.rb#texpreview.
     render :partial => "shared/preview", :locals => {:text => nil}
@@ -38,17 +38,17 @@ class FormsController < ApplicationController
 
   # GET /forms/1/edit
   def edit
-    @form = Form.find(params[:id])
+    @form = Form.find(form_params[:id])
   end
 
   # POST /forms
   # POST /forms.xml
   def create
-    @form = Form.new(params[:form])
+    @form = Form.new(form_params[:form])
 
     respond_to do |format|
       if @form.save
-        params[:id] = @form.id
+        form_params[:id] = @form.id
         flash[:notice] = 'Form was successfully created.'
 
         format.html { redirect_to(@form) }
@@ -72,22 +72,22 @@ class FormsController < ApplicationController
 
   # PUT /forms/1
   def update
-    @form = Form.find(params[:id])
+    @form = Form.find(form_params[:id])
 
     respond_to do |format|
       if @form.critical?
         flash[:error] = 'Form was critical and has therefore not been updated.'
         format.html { redirect_to(@form) }
         format.json { render json: flash[:error], status: :unprocessable_entity }
-      elsif @form.update_attributes(params[:form])
-        expire_fragment("preview_forms_#{params[:id]}")
+      elsif @form.update_attributes(form_params[:form])
+        expire_fragment("preview_forms_#{form_params[:id]}")
 
         $loaded_yaml_sheets ||= {}
         if $loaded_yaml_sheets.keys.any? { |k| k.is_a?(String) }
           raise "$loaded_yaml_sheets only allows integer keys, but somewhere a string-key got added. Find out where, or you will run into a lot of stale caches."
         end
 
-        $loaded_yaml_sheets[params[:id].to_i] = nil
+        $loaded_yaml_sheets[form_params[:id].to_i] = nil
         format.html { redirect_to @form, notice: 'Form was successfully updated.' }
         format.json { head :no_content }
       else
@@ -100,12 +100,12 @@ class FormsController < ApplicationController
   # DELETE /forms/1
   # DELETE /forms/1.xml
   def destroy
-    @form = Form.find(params[:id])
+    @form = Form.find(form_params[:id])
     # don’t delete if form is critical or any course uses it
-    cantdel = @form.critical? || !Course.find_by_form_id(params[:id]).nil?
+    cantdel = @form.critical? || !Course.find_by_form_id(form_params[:id]).nil?
     unless cantdel
       @form.destroy
-      $loaded_yaml_sheets[params[:id].to_i] = nil if defined? $loaded_yaml_sheets
+      $loaded_yaml_sheets[form_params[:id].to_i] = nil if defined? $loaded_yaml_sheets
     end
 
     respond_to do |format|
@@ -116,7 +116,7 @@ class FormsController < ApplicationController
   end
 
   def copy_to_current
-    form = Form.find(params[:id])
+    form = Form.find(form_params[:id])
     terms = Term.currently_active
     if terms.empty?
       flash[:error] = "No current terms found. Please create them first."
@@ -146,5 +146,9 @@ class FormsController < ApplicationController
       format.html { redirect_to(forms_url) }
       format.xml  { head :ok }
     end
+  end
+  private
+  def form_params
+    params.permit!
   end
 end

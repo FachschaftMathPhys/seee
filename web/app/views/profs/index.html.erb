@@ -24,7 +24,7 @@
         <td><%=prof.gender %> <%=prof.gender_symbol%></td>
         <td><%=link_to "Show Details / Edit #{prof.fullname}", edit_prof_path(prof) %></td>
         <td><%=link_to('Destroy', {:controller => 'profs', :id => prof, :action => 'destroy'},
-            :confirm => "Really delete prof #{prof.fullname}?",
+            data: { confirm:  "Really delete prof #{prof.fullname}?"},
             :method => :delete) unless prof.critical? %></td>
       </tr>
     <% end %>

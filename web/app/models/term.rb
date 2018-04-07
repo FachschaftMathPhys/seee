@@ -5,7 +5,7 @@ class Term < ActiveRecord::Base
   has_many :courses, :inverse_of => :term
   has_many :course_profs, :through => :courses
   has_many :tutors, :through => :courses
-  has_many :faculties, :through => :courses, :uniq => true
+  has_many :faculties,->{ uniq }, :through => :courses
   validates_presence_of :title
   validates_presence_of :longtitle
 
@@ -15,7 +15,7 @@ class Term < ActiveRecord::Base
   # more efficient way of Term.find(:all).find_all { |t| t.now? }.
   def self.currently_active
     d = Date.today
-    find(:all, :conditions => ["firstday <= ? AND lastday >= ?", d, d])
+    where(["firstday <= ? AND lastday >= ?", d, d])
   end
 
   def self.currently_active_forms

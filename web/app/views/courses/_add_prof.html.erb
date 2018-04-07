@@ -1,6 +1,6 @@
 <form method="post" action="<%=add_prof_course_path(@course)%>" id="add_prof">
   <input type="hidden" value="<%= form_authenticity_token %>" style="display:none"/>
-  <%= collection_select(:courses, :profs, Prof.find(:all, :order => 'surname'), :id, :surnamefirst, { :include_blank => true }, { :class => "combobox" }) %>
+  <%= collection_select(:courses, :profs, Prof.order('surname').to_a, :id, :surnamefirst, { :include_blank => true }, { :class => "combobox" }) %>
   <div class="button-group" style="vertical-align:top">
     <%= submit_tag 'Add professor to course', :class => "button primary" %>
     <%= link_to 'Create New Prof', new_prof_path, :class => "button" %>

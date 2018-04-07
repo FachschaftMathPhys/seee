@@ -12,8 +12,7 @@ class TutorsController < ApplicationController
   def index
     # (inner) join prevents us from loading tutors whose course does
     # not exist anymore
-    @tutors = Tutor.all(:joins => :course, :include => [:term],
-                :order => ["term_id DESC", :title, :abbr_name])
+    @tutors = Tutor.joins(:course).order(["term_id DESC", "title", :abbr_name])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +23,7 @@ class TutorsController < ApplicationController
   # GET /tutors/1
   # GET /tutors/1.xml
   def show
-    @tutor = Tutor.find(params[:id])
+    @tutor = Tutor.find(tutor_params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -34,13 +33,13 @@ class TutorsController < ApplicationController
 
   # GET /tutors/1/edit
   def edit
-    @tutor = Tutor.find(params[:id])
+    @tutor = Tutor.find(tutor_params[:id])
     @course = Course.find(@tutor.course_id)
   end
 
   # GET /tutors/1/preview
   def preview
-    @tutor = Tutor.find(params[:id])
+    @tutor = Tutor.find(tutor_params[:id])
 
     respond_to do |format|
       format.html # preview.html.erb
@@ -51,7 +50,7 @@ class TutorsController < ApplicationController
   # POST /tutors.xml
   def create
     existingTutors = @course.tutors.map { |x| x.abbr_name }
-    par = params[:tutor]['abbr_name'].split(',').map{ |x| x.strip }
+    par = tutor_params[:tutor]['abbr_name'].split(',').map{ |x| x.strip }
 
     errors = []
     par.uniq.sort.each do |p|
@@ -75,11 +74,11 @@ class TutorsController < ApplicationController
   # PUT /tutors/1
   # PUT /tutors/1.xml
   def update
-    @tutor = Tutor.find(params[:id])
-    expire_fragment("preview_tutors_#{params[:id]}") if @tutor.comment != params[:tutor][:comment]
+    @tutor = Tutor.find(tutor_params[:id])
+    expire_fragment("preview_tutors_#{tutor_params[:id]}") if @tutor.comment != tutor_params[:tutor][:comment]
 
     respond_to do |format|
-      if @tutor.update_attributes(params[:tutor])
+      if @tutor.update_attributes(tutor_params[:tutor])
         flash[:notice] = 'Tutor was successfully updated.'
         format.html { redirect_to([@tutor.course, @tutor]) }
         format.xml  { head :ok }
@@ -93,10 +92,10 @@ class TutorsController < ApplicationController
   # DELETE /tutors/1
   # DELETE /tutors/1.xml
   def destroy
-    @tutor = Tutor.find(params[:id])
+    @tutor = Tutor.find(tutor_params[:id])
 
     # expire preview cache as well
-    expire_fragment("preview_tutors_#{params[:id]}")
+    expire_fragment("preview_tutors_#{tutor_params[:id]}")
     @tutor.destroy unless @tutor.critical?
 
     respond_to do |format|
@@ -107,7 +106,7 @@ class TutorsController < ApplicationController
   end
 
   def result_pdf
-    @tutor = Tutor.find(params[:id])
+    @tutor = Tutor.find(tutor_params[:id])
     if @tutor.nil?
       flash[:error] = 'No tutor with this ID has been found'
       redirect_to tutors_path
@@ -134,5 +133,9 @@ class TutorsController < ApplicationController
     send_data data, :type => "application/pdf", :filename => "tutor_eval_#{@tutor.id}.pdf"
     FileUtils.remove_dir(pdf_path)
     FileUtils.remove_dir(temp_dir("tutor_eval_#{@tutor.id}"))
+  end
+  private
+  def tutor_params
+    params.permit!#unsafe
   end
 end

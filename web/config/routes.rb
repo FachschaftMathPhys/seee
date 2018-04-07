@@ -10,7 +10,7 @@ Seee::Application.routes.draw do
 
   resources :faculties
 
-  match "/tutors" => "tutors#index"
+  match "/tutors" => "tutors#index", via: [:get]
   resources :courses do
     resources :tutors
     get "/emergency_printing" => "courses#emergency_printing"
@@ -37,7 +37,7 @@ Seee::Application.routes.draw do
 
   # comment image source pass throughs
   get "/pics/:id/download" => "pics#download", :as => :download_pic
-  get "/cpics/:id/download" => "CPics#download", :as => :download_cpic
+  get "/cpics/:id/download" => "cpics#download", :as => :download_cpic
 
 
   get "/hitme" => "hitmes#overview"
@@ -50,7 +50,7 @@ Seee::Application.routes.draw do
   post "/hitme/save_final_check" => "hitmes#save_final_check"
 
 
-  match "/:cont/:viewed_id/ping/" => "sessions#ping", :as => "viewer_count"
-  match "/:cont/:viewed_id/ping/:ident" => "sessions#ping", :as => "ping"
-  match "/:cont/:viewed_id/unping/:ident" => "sessions#unping", :as => "unping"
+  match "/:cont/:viewed_id/ping/" => "sessions#ping", :as => "viewer_count", via: [:get]
+  match "/:cont/:viewed_id/ping/:ident" => "sessions#ping", :as => "ping", via: [:get]
+  match "/:cont/:viewed_id/unping/:ident" => "sessions#unping", :as => "unping", via: [:get]
 end

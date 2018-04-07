@@ -19,7 +19,7 @@
 
   <p>
     <% text = {"edit" => "Save Changes", "new" => "Create new #{controller.human_name}"}[controller.action_name] %>
-    <%= f.submit text, :disable_with => "Saving…", :class => "button primary" %>
+    <%= f.submit text, data: { disable_with: 'Saving…' }, :class => "button primary" %>
     <%= link_to 'Cancel', faculties_path, :class => "button" %>
   </p>
 <% end %>

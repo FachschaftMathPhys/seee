@@ -25,7 +25,7 @@
         <td><%=h term.longtitle %></td>
         <td><%= link_to "Edit #{term.title}", edit_term_path(term) %></td>
         <td><%= link_to "Show courses", term_courses_path(term) %></td>
-        <td><%= term.critical ? "Critical" : (link_to 'Destroy', term, :confirm => 'Are you sure?', :method => :delete) %></td>
+        <td><%= term.critical ? "Critical" : (link_to 'Destroy', term, data: { confirm: 'Are you sure?' }, :method => :delete) %></td>
 
       </tr>
     <% end %>

@@ -45,7 +45,7 @@ class Course < ActiveRecord::Base
   # to load as well in inc. Pass array of variables to sort by, if
   # wished.
   def self.filter(inc, cond, vals, order = nil)
-    Course.find(:all, :include => inc, :conditions => [cond.join(" AND "), *vals], :order => order)
+    Course.where(  [cond.join(" AND "), *vals]).order(order)
   end
 
   alias_attribute :comment, :summary

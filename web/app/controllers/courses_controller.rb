@@ -11,7 +11,7 @@ class CoursesController < ApplicationController
       return
     end
     # don’t allow URLs that have the search parameter without value
-    if params[:search] && params[:search].empty?
+    if courses_params[:search] && courses_params[:search].empty?
       redirect_to :controller => "courses", :action => "index"
       return
     end
@@ -22,8 +22,8 @@ class CoursesController < ApplicationController
     # filter by search term. Provide it as additional array, so the table
     # may hide entries instead of not showing them at all. This allows
     # javascript filtering, even if a query was submitted via HTTP.
-    if params[:search]
-      @matches = Course.search(params[:search], [:profs, :faculty], [cond], [vals], [:faculty_id, :title])
+    if courses_params[:search]
+      @matches = Course.search(courses_params[:search], [:profs, :faculty], [cond], [vals], [:faculty_id, :title])
 
       # if a search was performed and there is exactly one result go to it
       # directly instead of listing it
@@ -44,13 +44,13 @@ class CoursesController < ApplicationController
   end
 
   def search
-    @courses = Course.search params[:search]
+    @courses = Course.search courses_params[:search]
   end
 
   # GET /courses/1
   # GET /courses/1.xml
   def show
-    @course = Course.find(params[:id])
+    @course = Course.find(courses_params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -59,22 +59,22 @@ class CoursesController < ApplicationController
   end
 
   def correlate
-    @course = Course.find(params[:id])
+    @course = Course.find(courses_params[:id])
     respond_to do |format|
       format.html
       format.json do
-        if [params[:correlate_by], params[:question]].any_nil?
+        if [courses_params[:correlate_by], courses_params[:question]].any_nil?
           render :json => "Missing parameters.", :status => :unprocessable_entity
           return
         end
 
-        if params[:correlate_by] == params[:question]
+        if courses_params[:correlate_by] == courses_params[:question]
           render :json => "correlate_by and question must be different", :status => :unprocessable_entity
           return
         end
 
-        c = @course.form.get_question(params[:correlate_by])
-        q = @course.form.get_question(params[:question])
+        c = @course.form.get_question(courses_params[:correlate_by])
+        q = @course.form.get_question(courses_params[:question])
         if [c,q].any_nil?
           render :json => "Invalid question/correlate_by specified.", :status => :unprocessable_entity
           return
@@ -117,18 +117,18 @@ class CoursesController < ApplicationController
 
   # GET /courses/1/edit
   def edit
-    @course = Course.find(params[:id])
+    @course = Course.find(courses_params[:id])
   end
 
   # GET /courses/1/preview
   def preview
-    @course = Course.find(params[:id])
+    @course = Course.find(courses_params[:id])
   end
 
   # POST /courses
   # POST /courses.xml
   def create
-    @course = Course.new(params[:course])
+    @course = Course.new(courses_params[:course])
 
     respond_to do |format|
       if form_lang_combo_valid? && @course.save
@@ -146,12 +146,12 @@ class CoursesController < ApplicationController
   # PUT /courses/1
   # PUT /courses/1.xml
   def update
-    @course = Course.find(params[:id])
-    expire_fragment("preview_courses_#{params[:id]}")
+    @course = Course.find(courses_params[:id])
+    expire_fragment("preview_courses_#{courses_params[:id]}")
 
     respond_to do |format|
       checks = form_lang_combo_valid? && !critical_changes?(@course)
-      if checks && @course.update_attributes(params[:course])
+      if checks && @course.update_attributes(courses_params[:course])
         flash[:notice] = 'Course was successfully updated.'
         format.html { redirect_to(@course) }
         format.xml  { head :ok }
@@ -175,9 +175,9 @@ class CoursesController < ApplicationController
   # DELETE /courses/1
   # DELETE /courses/1.xml
   def destroy
-    @course = Course.find(params[:id])
+    @course = Course.find(courses_params[:id])
     # expire preview cache as well
-    expire_fragment("preview_courses_#{params[:id]}")
+    expire_fragment("preview_courses_#{courses_params[:id]}")
 
     unless @course.critical?
       begin
@@ -196,9 +196,9 @@ class CoursesController < ApplicationController
 
   # DELETE /courses/drop_prof?course=1&prof=1
   def drop_prof
-    @course = Course.find(params[:id])
+    @course = Course.find(courses_params[:id])
     unless @course.critical?
-      @prof = Prof.find(params[:prof_id])
+      @prof = Prof.find(courses_params[:prof_id])
       @course.profs.delete(@prof)
     end
 
@@ -211,8 +211,8 @@ class CoursesController < ApplicationController
 
   def add_prof
     begin
-      @course = Course.find(params[:id])
-      @prof = Prof.find(params[:courses][:profs])
+      @course = Course.find(courses_params[:id])
+      @prof = Prof.find(courses_params[:courses][:profs])
       @course.profs << @prof
 
       respond_to do |format|
@@ -231,7 +231,7 @@ class CoursesController < ApplicationController
 
   def emergency_printing
     @amount = Seee::Config.settings[:emergency_printing_amount]
-    @course = Course.find(params[:course_id])
+    @course = Course.find(courses_params[:course_id])
     if request.method.to_s.upcase == "POST"
       exit_codes = []
       @course.course_profs.each do |cp|
@@ -254,10 +254,10 @@ class CoursesController < ApplicationController
   def critical_changes? course
     # if the term is critical, these fields will not be submitted.
     # supply them from the database instead.
-    params[:course][:form_id] ||= course.form.id
-    params[:course][:language] ||= course.language
-    lang_changed = course.language.to_s != params[:course][:language].to_s
-    form_changed = course.form.id.to_s != params[:course][:form_id].to_s
+    courses_params[:course][:form_id] ||= course.form.id
+    courses_params[:course][:language] ||= course.language
+    lang_changed = course.language.to_s != courses_params[:course][:language].to_s
+    form_changed = course.form.id.to_s != courses_params[:course][:form_id].to_s
     if course.critical? && (lang_changed || form_changed)
       flash[:error] = "Can’t change the language because the term is critical." if lang_changed
       flash[:error] = "Can’t change the form because the term is critical." if form_changed
@@ -272,30 +272,34 @@ class CoursesController < ApplicationController
     # if the term is critical, these fields will not be submitted.
     # supply them from the database instead.
     if @course
-      params[:course][:form_id] ||= @course.form.id if @course.form
-      params[:course][:language] ||= @course.language
-      params[:course][:term_id] ||= @course.term.id if @course.term
+      courses_params[:course][:form_id] ||= @course.form.id if @course.form
+      courses_params[:course][:language] ||= @course.language
+      courses_params[:course][:term_id] ||= @course.term.id if @course.term
     end
 
     # check term has form
-    t = Term.find(params[:course][:term_id])
-    f = Form.find(params[:course][:form_id])
+    t = Term.find(courses_params[:course][:term_id])
+    f = Form.find(courses_params[:course][:form_id])
 
     unless t && f
       flash[:error] = "Selected term or form not found."
       return false
     end
 
-    unless t.forms.map { |f| f.id }.include?(params[:course][:form_id].to_i)
+    unless t.forms.map { |f| f.id }.include?(courses_params[:course][:form_id].to_i)
       flash[:error] = "Form “#{f.name}” (id=#{f.id}) is not " \
                         + "available for term “#{t.title}”"
       return false
     end
 
     # check form has language
-    l = params[:course][:language]
+    l = courses_params[:course][:language]
     return true if f.has_language?(l)
     flash[:error] = "There’s no language “#{l}” for form “#{f.name}”"
     false
+  end
+  private
+  def courses_params
+    params.permit!#(:id,:prof_id,:search,:correlate_by,:question,course:{})
   end
 end
