@@ -24,7 +24,7 @@ RT = ResultTools.instance unless defined?(RT)
 
 class LSF
   # URL to LSF Service
-  HOST_URL="http://lsf.uni-heidelberg.de/axis2/services/LSFService/"
+  HOST_URL="https://his.uni-heidelberg.de/axis2/services/LSFService/"
 
   # Points to the HTML serving component of the LSF, as the LSFService
   # doesn’t seem to include a search function. Replace SURNAME, LECTURE
@@ -65,10 +65,20 @@ class LSF
     #   return @@cache_http[url]
     #end
     #puts "actually loading #{url}"
-    req = Net::HTTP.get_response(URI.parse(URI.encode(url)))
+    #NOTE quick'n'dirty HTTPS connect because the LSF service changed
+    #NOTE to HTTPS. This can be done much prettier w/ URL autodetection
+    #NOTE or stuff
+    uri = URI.parse(URI.encode(url))
+    http = Net::HTTP.new(uri.host, 443)
+    http.use_ssl = true
+    request = Net::HTTP::Get.new(uri.request_uri)
+    response = http.request(request)
+    req = response
+    #req = Net::HTTP.get_response(URI.parse(URI.encode(url)))
     unless req.is_a?(Net::HTTPSuccess)
       warn "Sorry, couldn’t load LSF :("
       warn "URL: #{url}"
+      warn "error: #{req.error}"
       req.error!
     end
     # Net::HTTP always returns ASCII-8BIT encoding although the webpage
@@ -110,7 +120,7 @@ class LSF
   end
 
   def self.facul_id_to_name(id)
-    load_url(FACULTY + id.to_s).match(/<h2>(.*?)<\/h2>/)[0].strip_html
+    load_url(FACULTY + id.to_s).match(/<h2>(.*?)<\/h2>/)[0].strip_html rescue ""
   end
 
   # LSF Service methods ################################################
