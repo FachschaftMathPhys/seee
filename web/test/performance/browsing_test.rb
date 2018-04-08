@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 require 'test_helper'
-require 'rails/performance_test_help'
+#require 'rails/performance_test_help'
 
 class BrowsingTest < ActionDispatch::PerformanceTest
   # Refer to the documentation for all available options

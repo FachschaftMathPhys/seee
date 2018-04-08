@@ -13,102 +13,99 @@
 
 ActiveRecord::Schema.define(version: 20130110093720) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "c_pics", force: true do |t|
-    t.string   "basename"
+  create_table "c_pics", force: :cascade do |t|
+    t.string   "basename",       limit: 255
     t.integer  "course_prof_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.string   "source"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "source",         limit: 255
     t.text     "text"
     t.integer  "step"
   end
 
-  create_table "course_profs", force: true do |t|
+  create_table "course_profs", force: :cascade do |t|
     t.integer "course_id"
     t.integer "prof_id"
   end
 
-  create_table "courses", force: true do |t|
+  create_table "courses", force: :cascade do |t|
     t.integer  "term_id"
-    t.string   "title"
+    t.string   "title",       limit: 255
     t.integer  "students"
     t.integer  "faculty_id"
     t.integer  "old_form_i"
-    t.string   "evaluator"
-    t.string   "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "evaluator",   limit: 255
+    t.string   "description", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.text     "summary"
-    t.string   "fscontact"
+    t.string   "fscontact",   limit: 255
     t.integer  "form_id"
-    t.string   "language"
+    t.string   "language",    limit: 255
     t.text     "note"
-    t.string   "mails_sent"
+    t.string   "mails_sent",  limit: 255
   end
 
-  create_table "faculties", force: true do |t|
-    t.string   "longname"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "shortname"
+  create_table "faculties", force: :cascade do |t|
+    t.string   "longname",   limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "shortname",  limit: 255
   end
 
-  create_table "forms", force: true do |t|
+  create_table "forms", force: :cascade do |t|
     t.integer  "term_id"
-    t.string   "name"
+    t.string   "name",       limit: 255
     t.text     "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "pics", force: true do |t|
+  create_table "pics", force: :cascade do |t|
     t.integer  "tutor_id"
-    t.string   "basename"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "source"
+    t.string   "basename",   limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "source",     limit: 255
     t.text     "text"
     t.integer  "step"
   end
 
-  create_table "profs", force: true do |t|
-    t.string   "firstname"
-    t.string   "surname"
-    t.string   "email"
+  create_table "profs", force: :cascade do |t|
+    t.string   "firstname",  limit: 255
+    t.string   "surname",    limit: 255
+    t.string   "email",      limit: 255
     t.integer  "gender"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "sessions", force: true do |t|
-    t.string   "ident"
-    t.string   "cont"
+  create_table "sessions", force: :cascade do |t|
+    t.string   "ident",      limit: 255
+    t.string   "cont",       limit: 255
     t.integer  "viewed_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "ip"
-    t.string   "agent"
-    t.string   "username"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "ip",         limit: 255
+    t.string   "agent",      limit: 255
+    t.string   "username",   limit: 255
   end
 
-  create_table "terms", force: true do |t|
+  create_table "terms", force: :cascade do |t|
     t.date     "firstday"
     t.date     "lastday"
-    t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "title",      limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "critical"
-    t.string   "longtitle"
+    t.string   "longtitle",  limit: 255
   end
 
-  create_table "tutors", force: true do |t|
+  create_table "tutors", force: :cascade do |t|
     t.integer  "course_id"
-    t.string   "abbr_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "abbr_name",  limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.text     "comment"
   end
 

@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem "rails",           "4.1"
+gem "rails",           "4.2"
 gem "jquery-rails", "3.1.4"
 gem "jquery-ui-rails"
 gem 'bootstrap-datepicker-rails'
@@ -67,4 +67,7 @@ group :pest do
   gem "rmagick", :require => "RMagick"
 end
  gem 'spring', group: :development
+ gem 'web-console', '~> 2.0', group: :development
 gem 'jquery-migrate-rails'
+gem 'rails-perftest'
+gem 'ruby-prof', '0.15.9'
