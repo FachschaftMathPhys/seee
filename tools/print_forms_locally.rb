@@ -104,7 +104,7 @@ poss.each do |f|
   next if File.basename(f).start_with?(" multiple")
   data = f.match(/.*\s-\s([a-z]+)\s-\s.*\s([0-9]+)pcs.pdf/)
   next if data.nil? || data[1].nil? || data[2].nil? || data[2].to_i <= 0
-  count = data[2].to_i
+  count = 1
   sheets += count
   forms[f] = { :count => count, :lang => data[1] }
 end

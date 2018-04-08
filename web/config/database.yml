@@ -13,9 +13,9 @@
 
 login: &login
   adapter:  postgresql
-  username: <%= Seee::Config.external_database[:username] %>
-  password: <%= Seee::Config.external_database[:password] %>
-  host:     <%= Seee::Config.external_database[:host] %>
+  username: postgres
+#  password: <%= Seee::Config.external_database[:password] %>
+  host:     localhost
 
 development:
   <<: *login

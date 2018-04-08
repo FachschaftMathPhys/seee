@@ -11,7 +11,7 @@
   <table class="two-tables-left">
     <tr><th colspan="2" style="font-size:120%">master data</th></tr>
     <%
-      comment_link = link_to "#{@course.c_pics.size} comments (#{number_to_percentage(@course.c_pics.size/@course.returned_sheets.to_f*100, :precision => 0)})", (edit_course_path(@course) + "#commentfield")
+      comment_link = link_to "#{@course.c_pics.size} comments (#{number_to_percentage(@course.c_pics.size/(@course.returned_sheets.to_f+0.0001)*100, :precision => 0)})", (edit_course_path(@course) + "#commentfield")
       comment_returned = "#{@course.returned_sheets} returned (#{number_to_percentage(@course.return_quota*100, :precision => 0)})"
       spacer = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
       stud_returned = "#{@course.students} #{spacer} #{comment_returned} #{spacer} #{comment_link}".html_safe

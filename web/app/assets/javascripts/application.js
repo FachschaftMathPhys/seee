@@ -11,6 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require jquery-migrate-min
 //= require jquery_ujs
 //= require jquery-ui
 //= require hold_button
@@ -22,5 +23,4 @@
 //= require combobox
 //= require jquery.numeric
 //= require jquery.autosize
-//= require prevent-leaving-unsaved-form
 //= require bootstrap-datepicker

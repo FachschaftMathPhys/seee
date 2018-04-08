@@ -3,9 +3,10 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ProfTest < ActiveSupport::TestCase
-  extend StripAttributes::Shoulda::Macros
-  include StripAttributes::Matchers
-  should_strip_attributes :firstname, :surname, :email
+  extend StripAttributes::Matchers
+  should strip_attribute :firstname
+  should strip_attribute :surname
+  should strip_attribute :email
   should have_many(:course_profs)
 
   def test_attributes_get_trimmed

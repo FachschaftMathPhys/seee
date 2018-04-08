@@ -14,15 +14,15 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 end
 
-require "strip_attributes/shoulda"
+require "strip_attributes/matchers"
 module Test
   module Unit
     class TestCase
-      extend StripAttributes::Shoulda::Macros
+      include StripAttributes::Matchers
     end
   end
 end
-require "strip_attributes/matchers"
+
 class ActiveSupport::TestCase
   include StripAttributes::Matchers
 end

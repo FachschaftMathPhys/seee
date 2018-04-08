@@ -2,7 +2,7 @@
 \ProvidesClass{eval}[2012/02/09 evalsheets]
 
 \RequirePackage{fix-cm}
-\LoadClass[twoside,8pt]{scrartcl}
+\LoadClass[twoside,7pt]{scrartcl}
 \RequirePackage{fixltx2e}
 
 \RequirePackage[utf8]{inputenc}
@@ -349,13 +349,13 @@
     \IfNoValueTF{#3}{
     \IfNoValueTF{#2}{
       \sectBox{\tabHeadOneAnsw   \sectText{#1} &          &          & \\[0.6mm]\hline \end{tabular}}
-    }{\sectBox{\tabHeadOneAnsw   \sectText{#1} & \footnotesize#2 &          & \\[0.6mm]\hline \end{tabular}}}
-    }{\sectBox{\tabHeadTwoAnsw   \sectText{#1} & \footnotesize#2 & \footnotesize#3 & \\[0.6mm]\hline \end{tabular}}}
-    }{\sectBox{\tabHeadThreeAnsw \sectText{#1} & \footnotesize#2 & \footnotesize#3 & \footnotesize#4 & \\[0.6mm]\hline \end{tabular}}}
-    }{\sectBox{\tabHeadFourAnsw  \sectText{#1} & \footnotesize#2 & \footnotesize#3 & \footnotesize#4 & \footnotesize#5 & \\[0.6mm]\hline \end{tabular}}}
-    }{\sectBox{\tabHeadFiveAnsw  \sectText{#1} & \footnotesize#2 & \footnotesize#3 & \footnotesize#4 & \footnotesize#5 & \footnotesize#6 & \\[0.6mm]\hline \end{tabular}}}
-    }{\sectBox{\tabHeadSixAnsw   \sectText{#1} & \footnotesize#2 & \footnotesize#3 & \footnotesize#4 & \footnotesize#5 & \footnotesize#6 & \footnotesize#7 & \\[0.6mm]\hline \end{tabular}}}
-    }{\sectBox{\tabHeadSevenAnsw \sectText{#1} & \footnotesize#2 & \footnotesize#3 & \footnotesize#4 & \footnotesize#5 & \footnotesize#6 & \footnotesize#7 & \footnotesize#8 & \\[0.6mm]\hline \end{tabular}}}
+    }{\sectBox{\tabHeadOneAnsw   \sectText{#1} & \small#2 &          & \\[0.6mm]\hline \end{tabular}}}
+    }{\sectBox{\tabHeadTwoAnsw   \sectText{#1} & \small#2 & \small#3 & \\[0.6mm]\hline \end{tabular}}}
+    }{\sectBox{\tabHeadThreeAnsw \sectText{#1} & \small#2 & \small#3 & \small#4 & \\[0.6mm]\hline \end{tabular}}}
+    }{\sectBox{\tabHeadFourAnsw  \sectText{#1} & \small#2 & \small#3 & \small#4 & \small#5 & \\[0.6mm]\hline \end{tabular}}}
+    }{\sectBox{\tabHeadFiveAnsw  \sectText{#1} & \small#2 & \small#3 & \small#4 & \small#5 & \small#6 & \\[0.6mm]\hline \end{tabular}}}
+    }{\sectBox{\tabHeadSixAnsw   \sectText{#1} & \small#2 & \small#3 & \small#4 & \small#5 & \small#6 & \small#7 & \\[0.6mm]\hline \end{tabular}}}
+    }{\sectBox{\tabHeadSevenAnsw \sectText{#1} & \small#2 & \small#3 & \small#4 & \small#5 & \small#6 & \small#7 & \small#8 & \\[0.6mm]\hline \end{tabular}}}
 }
 
 % prints out a new section header. First argument specifies the main bold text, following options are
@@ -407,7 +407,7 @@
 
 % prints the answer text for each box unless printAnswers has been disabled for this question
 \newcommand{\aText}[1]{
-  \ifthenelse{\boolean{printAnswers}}{\footnotesize#1}{}
+  \ifthenelse{\boolean{printAnswers}}{\small#1}{}
 }
 
 
@@ -732,31 +732,31 @@
     \addtocounter{answerCounter}{1}
     \g@addto@macro\hasMoreAnswers{
       \\[4mm] & \bxs     &
-      \\      & \footnotesize#1}
+      \\      & \small#1}
   }{\addtocounter{answerCounter}{2}
     \g@addto@macro\hasMoreAnswers{
       \\[4mm] & \bxs     & \bxs     &
-      \\      & \footnotesize#1 & \footnotesize#2}
+      \\      & \small#1 & \small#2}
   }}{\addtocounter{answerCounter}{3}
     \g@addto@macro\hasMoreAnswers{
       \\[4mm] & \bxs     & \bxs     & \bxs     &
-      \\      & \footnotesize#1 & \footnotesize#2 & \footnotesize#3}
+      \\      & \small#1 & \small#2 & \small#3}
   }}{\addtocounter{answerCounter}{4}
     \g@addto@macro\hasMoreAnswers{
       \\[4mm] & \bxs    & \bxs     & \bxs     & \bxs     &
-      \\      &\footnotesize#1 & \footnotesize#2 & \footnotesize#3 & \footnotesize#4}
+      \\      &\small#1 & \small#2 & \small#3 & \small#4}
   }}{\addtocounter{answerCounter}{5}
     \g@addto@macro\hasMoreAnswers{
       \\[4mm] & \bxs     & \bxs     & \bxs     & \bxs     & \bxs     &
-      \\      & \footnotesize#1 & \footnotesize#2 & \footnotesize#3 & \footnotesize#4 & \footnotesize#5}
+      \\      & \small#1 & \small#2 & \small#3 & \small#4 & \small#5}
   }}{\addtocounter{answerCounter}{6}
     \g@addto@macro\hasMoreAnswers{
       \\[4mm] & \bxs     & \bxs     & \bxs     & \bxs     & \bxs     & \bxs     &
-      \\      & \footnotesize#1 & \footnotesize#2 & \footnotesize#3 & \footnotesize#4 & \footnotesize#5 & \footnotesize#6}
+      \\      & \small#1 & \small#2 & \small#3 & \small#4 & \small#5 & \small#6}
   }}{\addtocounter{answerCounter}{7}
     \g@addto@macro\hasMoreAnswers{
       \\[4mm] & \bxs     & \bxs     & \bxs     & \bxs     & \bxs     & \bxs     & \bxs     &
-      \\      & \footnotesize#1 & \footnotesize#2 & \footnotesize#3 & \footnotesize#4 & \footnotesize#5 & \footnotesize#6 & \footnotesize#7}
+      \\      & \small#1 & \small#2 & \small#3 & \small#4 & \small#5 & \small#6 & \small#7}
   }
 }
 

@@ -52,7 +52,6 @@ module Seee
     # only protect manually specified attributes from malicious assignments. For now,
     # Seee trusts anyone (and anything) and is only meant to be used by trusted users.
     # In the future, we should toggle this.
-    config.active_record.whitelist_attributes = false
 
     # don't include all helpers in all views. This allows us to have the same method
     # defined multiple times and execute the right one depending on the active model/
@@ -65,5 +64,6 @@ module Seee
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    config.i18n.enforce_available_locales = false
   end
 end

@@ -36,7 +36,7 @@
       <tr>
         <td><%=s.username%></td>
         <td><%=time_ago_in_words(s.created_at)%></td>
-        <td><%=time_ago_in_words(s.updated_at, true)%> ago</td>
+        <td><%=time_ago_in_words(s.updated_at)%> ago</td>
         <td><%=Hitme.step_to_text(step) %></td>
         <td><%=course.title %></td>
         <td><%=details%></td>
