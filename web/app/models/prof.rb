@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # This means physical persons. They have many courses.
-class Prof < ActiveRecord::Base
+class Prof < ApplicationRecord
   has_many :course_profs, :inverse_of => :prof
   has_many :courses, :through => :course_profs
   validates_presence_of :firstname, :surname, :gender

@@ -72,7 +72,7 @@ class PESTFix < PESTDatabaseTools
 
     # global Variables
     @window = win
-    @gdkrgb = Gdk::Pixbuf::ColorSpace::RGB
+  #  @gdkrgb = GdkPixbuf::Pixbuf::ColorSpace::RGB
     @noChoiceDrawWidth = 40
 
     init_gui
@@ -631,7 +631,9 @@ class PESTFix < PESTDatabaseTools
     @load_image_from_disk = path
     debug "Loading image at #{path}", "loading_img"
     # Destroy old image
-    @orig.each { |x| x.destroy! } if @orig != nil
+    unless @orig.nil?
+      @orig.each { |x| x.destroy! }
+    end
     # Load new IMG
     if File.exists?(path)
       @orig = Magick::ImageList.new(path)
@@ -698,7 +700,7 @@ class PESTFix < PESTDatabaseTools
     # slow
     temp = Tempfile.new("image.jpg")
     img.write("jpg:"+ temp.path)
-    @pixbuf = Gdk::Pixbuf.new(temp.path)
+    @pixbuf = GdkPixbuf::Pixbuf.new(temp.path)
 
     debug "rendered image", "render_image"
 

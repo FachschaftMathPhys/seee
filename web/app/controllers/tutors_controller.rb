@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class TutorsController < ApplicationController
-  before_filter :load_course, :except => :index
+  before_action :load_course, :except => :index
 
   def load_course
     @course = Course.find(params[:course_id])

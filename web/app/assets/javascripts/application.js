@@ -12,6 +12,10 @@
 //
 //= require jquery
 //= require jquery-migrate-min
+//= require ace/ace
+//= require ace/theme-twilight
+//= require ace/mode-latex
+//= require jquery-ace.min
 //= require jquery_ujs
 //= require jquery-ui
 //= require hold_button

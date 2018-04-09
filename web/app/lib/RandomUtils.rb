@@ -93,10 +93,6 @@ end
 # Automatically rotates and orders the pages if  a barcode is found.
 def find_barcode(filename, desperate = false)
   zbar = Seee::Config.application_paths[:zbar]
-  unless File.exist?(zbar)
-    puts "Couldn’t find a suitable zbarimg executable. This is likely due to your platform (= #{`uname -m`.strip}) not being supported by default. You can resolve this by running “rake magick:buildZBar”."
-    exit 1
-  end
   zbar = Seee::Config.commands[:zbar]
   zbar_d = Seee::Config.commands[:zbar_desperate]
   r = `#{desperate ? zbar_d : zbar} "#{filename}"`

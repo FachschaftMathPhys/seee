@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 
-class CourseProf < ActiveRecord::Base
+class CourseProf < ApplicationRecord
   belongs_to :course, :inverse_of => :course_profs
   belongs_to :prof, :inverse_of => :course_profs
   has_many :c_pics, :inverse_of => :course_prof

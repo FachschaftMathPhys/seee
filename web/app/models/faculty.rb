@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Faculty < ActiveRecord::Base
+class Faculty < ApplicationRecord
   has_many :courses, :inverse_of => :faculty
   has_many :course_profs, :through => :courses
   validates_presence_of :shortname, :longname

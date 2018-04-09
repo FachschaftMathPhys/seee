@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Term < ActiveRecord::Base
+class Term < ApplicationRecord
   has_many :forms, :inverse_of => :term
   has_many :courses, :inverse_of => :term
   has_many :course_profs, :through => :courses

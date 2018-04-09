@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 # tutors belong to a course.
-class Tutor < ActiveRecord::Base
+class Tutor < ApplicationRecord
   belongs_to :course, :inverse_of => :tutors
   has_many :pics, :inverse_of => :tutor
   has_one :form, :through => :course

@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   # Set UTF-8 header on everything.
-  before_filter :set_utf8_header
+  before_action :set_utf8_header
   def set_utf8_header
     response.headers['Content-type'] = 'text/html; charset=utf-8'
   end

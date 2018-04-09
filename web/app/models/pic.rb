@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Pic < ActiveRecord::Base
+class Pic < ApplicationRecord
   belongs_to :tutor, :inverse_of => :pics
   has_one :course, :through => :tutor
   has_one :term, :through => :tutor

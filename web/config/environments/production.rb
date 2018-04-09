@@ -5,7 +5,7 @@ Seee::Application.configure do
 
   # Code is not reloaded between requests
   config.cache_classes = true
-
+  config.eager_load = true
   # even though in production, print full error messages
   config.consider_all_requests_local       = true
   # enable full caching

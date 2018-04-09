@@ -1,7 +1,7 @@
 /** converts all textareas to ACE Editors in place. Sets some default
  * options on the editor. Expects Prototype, ACE and mode-latex to be
  * loaded beforehand. */
-
+var $formHasBeenEdited = 0;
 if(line_offset_number == null)
   var line_offset_number = 0;
 
@@ -68,7 +68,7 @@ $(document).ready(function() {
     var editor = ace.edit(id + "_ace_editor");
     var session = editor.getSession();
 
-    var texmode = require("ace/mode/" + ace_mode).Mode;
+    var texmode = ace.require("ace/mode/" + ace_mode).Mode;
     session.setMode(new texmode());
     session.setUseWrapMode(true);
     session.setWrapLimitRange();

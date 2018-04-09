@@ -5,7 +5,6 @@
 \LoadClass[twoside,7pt]{scrartcl}
 \RequirePackage{fixltx2e}
 
-\RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{amssymb}
 \RequirePackage{array}
@@ -19,7 +18,6 @@
 \RequirePackage{graphicx}
 \RequirePackage{ifthen}
 \RequirePackage{multirow}
-\RequirePackage{microtype}
 \let\amssymbBox\Box
 \RequirePackage{MnSymbol}
 \let\Box\amssymbBox

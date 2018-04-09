@@ -27,14 +27,14 @@
               if @course.critical?
                 "#{@course.term.title} (can't change this while critical)"
               else
-                collection_select(:course, :term_id, Term.reverse, :id, :title, {:prompt => true})
+                collection_select(:course, :term_id, Term.all.reverse, :id, :title, {:prompt => true})
               end, "required"],
           [f.label(:faculty, :for=>"course_faculty_id"),collection_select(:course, :faculty_id, Faculty.all, :id, :longname, {:prompt => true}), "required"],
           [f.label(:form),
               if @course.critical?
                 "#{@course.form.name} (can't change this while critical)"
               else
-                collection_select(:course, :form_id, Form.to_a, :id, :name, {:prompt => true}, {:onchange => "updateLanguages(this);" })
+                collection_select(:course, :form_id, Form.all, :id, :name, {:prompt => true}, {:onchange => "updateLanguages(this);" })
               end, "required"],
           [f.label(:language),
               if @course.critical?

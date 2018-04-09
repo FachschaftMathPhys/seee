@@ -38,7 +38,7 @@ SHEET_WARNING=1000
 
 GNT_ROOT=File.expand_path(File.join(File.dirname(__FILE__), "..")) unless defined?(GNT_ROOT)
 # change into tmp directory
-Dir.chdir(Seee::Config.file_paths[:cache_tmp_dir])
+#Dir.chdir(Seee::Config.file_paths[:cache_tmp_dir])
 
 sheets = 0
 forms = {}

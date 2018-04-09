@@ -1,4 +1,4 @@
-class Session < ActiveRecord::Base
+class Session < ApplicationRecord
   # the lambda is required so that 30.seconds.ago is not cached and
   # evaluated each time. See http://stackoverflow.com/a/14093331/1684530
   default_scope -> { where("updated_at > ?", 30.seconds.ago) }

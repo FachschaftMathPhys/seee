@@ -48,8 +48,8 @@ a, .hold_button:not(.hold_button_form_compat) input {
 // Buttons
 ////////////////////////////////////////////////////////////////////////
 
-@import 'gh-buttons';
-@import 'gh-buttons-red';
+//@import 'gh-buttons';
+//@import 'gh-buttons-red';
 // this margin moving spaces the buttons in case of line breaks
 .button-group {
   margin-top:-0.5rem;

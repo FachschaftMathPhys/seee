@@ -223,10 +223,9 @@ class HitmesController < ApplicationController
 
   def remove_session(workon)
     return unless workon && hitmes_params[:ident]
-    Session.unscoped.delete_all(
-      :cont => workon.class.to_s.pluralize.downcase,
-      :viewed_id => workon.id,
-      :ident => hitmes_params[:ident]
+    Session.unscoped.where(:cont => workon.class.to_s.pluralize.downcase,
+    :viewed_id => workon.id,
+    :ident => hitmes_params[:ident]).delete_all(
     )
   end
   private

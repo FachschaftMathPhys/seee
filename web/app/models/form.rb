@@ -3,7 +3,7 @@
 require 'pp'
 require 'stringio'
 
-class Form < ActiveRecord::Base
+class Form < ApplicationRecord
   belongs_to :term, :inverse_of => :forms
   has_many :courses, :inverse_of => :form
   validates_presence_of :term, :name, :content

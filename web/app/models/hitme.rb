@@ -1,4 +1,4 @@
-class Hitme < ActiveRecord::Base
+class Hitme < ApplicationRecord
   TYPING = 0
   PROOFREADING = 1
   COMBINING = 2

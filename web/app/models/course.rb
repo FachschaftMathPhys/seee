@@ -4,7 +4,7 @@ require 'erb'
 
 # A course has many professors, belongs to a term and has a lot of
 # tutors. The semantic could be a lecute, some seminar, tutorial etc.
-class Course < ActiveRecord::Base
+class Course < ApplicationRecord
   belongs_to :term, :inverse_of => :courses
   belongs_to :faculty, :inverse_of => :courses
   belongs_to :form, :inverse_of => :courses

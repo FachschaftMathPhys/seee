@@ -1,9 +1,10 @@
 source "http://rubygems.org"
 
-gem "rails",           "4.2"
-gem "jquery-rails", "3.1.4"
+gem "rails", "~>5"
+gem "jquery-rails"
 gem "jquery-ui-rails"
 gem 'bootstrap-datepicker-rails'
+gem "sass"
 # replaces WebRick to get rid of the content length warnings. See
 # http://stackoverflow.com/questions/9612618/
 # Also required for multithreaded Rails. See
@@ -25,8 +26,7 @@ end
 
 # Gems used only for assets and not required in production environments
 # by default.
-  gem "sass-rails",   "~> 4.0"
-  gem "coffee-rails", "~> 4.0"
+  #gem "sass-rails"
   gem "uglifier", ">= 1.0.3"
   gem "therubyracer"
   gem "yui-compressor"
@@ -40,8 +40,7 @@ end
 # required
 gem "rails-dbi", :require => "dbi"
 
-gem "mysql2"
-gem "dbd-mysql"
+
 
 gem "pg", "~> 0.18"
 gem "dbd-pg"
@@ -60,14 +59,15 @@ end
 
 # gems required for OMR
 group :pest do
-  gem "pkg-config", "1.1.5"
-  gem "cairo", "1.12.2"
-  gem "glib2", "3.0.8"
-  gem "gtk2"
+  gem "pkg-config"
+  gem "cairo"
+  gem "glib2", "~> 3.2.1"
+  gem 'gtk2'
   gem "rmagick", :require => "RMagick"
 end
  gem 'spring', group: :development
- gem 'web-console', '~> 2.0', group: :development
 gem 'jquery-migrate-rails'
 gem 'rails-perftest'
 gem 'ruby-prof', '0.15.9'
+gem 'jquery-ace-rails'
+gem 'coffee-rails'

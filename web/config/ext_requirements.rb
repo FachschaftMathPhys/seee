@@ -32,10 +32,11 @@ reqs = []
 reqs << File.join(cdir, "initializers/001_requirements.rb")
 reqs << File.join(cdir, "initializers/002_constants.rb")
 reqs += Dir.glob(File.join(cdir, "../app/lib/*.rb"))
+reqs += Dir.glob(File.join(cdir, "../app/models/application_record.rb"))
 reqs += Dir.glob(File.join(cdir, "../app/models/*.rb"))
 
 reqs.uniq.each do |d|
-  next if d.end_with?(File.basename(__FILE__))
+#  next if d.end_with?(File.basename(__FILE__))
   next if d.end_with?("session.rb")
   require d
 end

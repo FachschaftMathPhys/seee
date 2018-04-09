@@ -45,7 +45,7 @@ Term.currently_active.each do |term|
       # pre-fill columns
       answ[col] ||= {}
       sql = "SELECT COUNT(*) AS cnt, #{txt_col} AS val FROM #{table} "
-      sql << %(WHERE #{col} = ? AND #{txt_col} <> "" AND #{txt_col} IS NOT NULL )
+      sql << %(WHERE #{col} = ? AND #{txt_col} <> '' AND #{txt_col} IS NOT NULL )
       sql << "GROUP BY #{txt_col}"
       RT.custom_query(sql, [quest.boxes.count]).each do |p|
         answ[col][p["val"]] ||= 0
