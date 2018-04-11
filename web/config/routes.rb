@@ -1,6 +1,18 @@
 # encoding: utf-8
 
 Seee::Application.routes.draw do
+  namespace :api do
+    jsonapi_resources :forms
+    jsonapi_resources :terms
+    jsonapi_resources :course_profs
+    jsonapi_resources :courses
+    jsonapi_resources :faculties
+    jsonapi_resources :c_pics
+    jsonapi_resources :pics
+    jsonapi_resources :profs
+    jsonapi_resources :terms
+    jsonapi_resources :tutors
+  end
   resources :forms do
     member do
       get "/copy_to_current" => "forms#copy_to_current"
