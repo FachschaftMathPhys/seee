@@ -1,4 +1,14 @@
-G'n'T Eval
+
+
+
+
+
+
+
+
+
+
+Seee (fork of G'n'T Eval) -- SystemEvaluationsErvEr
 ==========
 
 G'n'T Eval is an evaluation suite that allows to carry out pen and paper
@@ -16,26 +26,24 @@ computer science and astronomy faculties at the university in Heidelberg. About
 2000 questionnaires are processed each term (that number is limited by manpower,
 not by software).
 
+Seee is a port to Ruby on Rails 5 in a Docker-Container, it is a stripped version of G'n'T-Eval.
+The PeST module is therefore removed from this project into a seperate repository and 
+is now the client commandline tool. For more information read [CCLI](doc/CCLI).
 
 Trying it out
 -------------
 
-If you want to try the software it is recommended to download a VirtualBox Image
-that has G'n'T Eval preinstalled. It works out of the box and you can simply point
-your web browser (not the VirtualBox one) to <http://localhost:3000> after
-starting the image.
+If you want to try the software it is recommended to build the Dockerfile. After starting the image,
+ visit localhost at the port you specified.
 
-[Download VirtualBox Image](http://b.uni-hd.de/gnt-eval/virtualboximg.html)
-
-More information may be found in `doc/VIRTUAL_BOX_IMAGE`
-
+More information may be found in `doc/DOCKER_FILE`
 
 I need help
 -----------
 
 If you are stuck anywhere or have questions about the project feel free to [open a
-ticket](https://github.com/breunigs/gnt-eval/issues/new) or write an email to
-<breunig@uni-hd.de>.
+ticket](https://github.com/FachschaftMathPhys/seee/issues/new) or write an email to
+<henrik@mathphys.stura.uni-heidelberg.de>.
 
 You can have a look at the files in the `doc` directory of the project, where most
 of the end-user documentation resides. If this is your first evaluation ever,
@@ -136,3 +144,7 @@ the project (in German, alphabetical order):
 - Paul ist doof
 - Rebecca ist doof
 - Stefan ist doof
+
+As years pass by new technologies emerge and therefore gnt-eval needed a little refresh.
+This is why seee was started and pest extracted. Main developer of Seee is 
+Henrik <henrik@mathphys.stura.uni-heidelberg.de>.
