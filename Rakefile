@@ -71,7 +71,7 @@ require './rakefiles/import.rb'
 require './rakefiles/mail.rb'
 require './rakefiles/omr-test-helper.rb'
 require './rakefiles/results.rb'
-require './custom_build/build.rb'
+#require './custom_build/build.rb'
 
 # automatically calls rake -T when no task is given
 task :default do
