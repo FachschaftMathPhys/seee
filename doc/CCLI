@@ -6,7 +6,7 @@ Following ressources are aviable:
 | Ressource |  description | attributes | relationships |
 | --------- |  ----------- | --------   | ------------- |
 | c_pic    |   course pic |  step, text, source, basename   | course_prof, course, term              |
-| course_prof | The relation between a course and a prof | professor | returned_sheets , course, prof, form, term, c_pics |
+| course_prof | The relation between a course and a prof |  | returned_sheets , course, prof, form, term, c_pics |
 | course | A course | title, students, evaluator, description, summary, fscontact, language, note, mails_sent | form, term, faculty, course_profs, profs, c_pics, tutors |
 | faculty | A faculty | longname, shortname, critical | courses, course_profs |
 | form | A form | name, critical ,content, languages |term |
