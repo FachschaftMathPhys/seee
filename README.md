@@ -27,8 +27,8 @@ computer science and astronomy faculties at the university in Heidelberg. About
 not by software).
 
 Seee is a port to Ruby on Rails 5 in a Docker-Container, it is a stripped version of G'n'T-Eval.
-The PeST module is therefore removed from this project into a seperate repository and 
-is now the client commandline tool. For more information read [CCLI](doc/CCLI).
+The PeST module is therefore removed from this project into a seperate repository and
+is now the client commandline tool. For more information read [CCLI](doc/CCLI.md).
 
 Trying it out
 -------------
@@ -36,7 +36,7 @@ Trying it out
 If you want to try the software it is recommended to build the Dockerfile. After starting the image,
  visit localhost at the port you specified.
 
-More information may be found in `doc/DOCKER_FILE`
+More information may be found in [DOCKERFILE](doc/DOCKERFILE.md)
 
 I need help
 -----------
@@ -146,5 +146,5 @@ the project (in German, alphabetical order):
 - Stefan ist doof
 
 As years pass by new technologies emerge and therefore gnt-eval needed a little refresh.
-This is why seee was started and pest extracted. Main developer of Seee is 
+This is why seee was started and pest extracted. Main developer of Seee is
 Henrik <henrik@mathphys.stura.uni-heidelberg.de>.

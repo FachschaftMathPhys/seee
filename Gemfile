@@ -72,3 +72,4 @@ gem 'ruby-prof', '0.15.9'
 gem 'jquery-ace-rails'
 gem 'coffee-rails'
 gem 'jsonapi-resources'
+gem "byebug"

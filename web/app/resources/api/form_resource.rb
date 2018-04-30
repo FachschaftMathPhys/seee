@@ -1,5 +1,5 @@
 class Api::FormResource < JSONAPI::Resource
-  attributes :name, :critical, :content, :languages
+  attributes :name, :critical, :content, :languages, :updated_at
   has_one :term
   def critical
     @model.critical?

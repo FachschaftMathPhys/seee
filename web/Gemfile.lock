@@ -44,6 +44,7 @@ GEM
     bootstrap-datepicker-rails (1.8.0.1)
       railties (>= 3.0)
     builder (3.2.3)
+    byebug (10.0.2)
     cairo (1.15.12)
       native-package-installer (>= 1.0.3)
       pkg-config (>= 1.2.2)
@@ -234,6 +235,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-datepicker-rails
+  byebug
   cairo
   coffee-rails
   dbd-pg

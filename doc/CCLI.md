@@ -14,3 +14,7 @@ Following ressources are aviable:
 |prof |  a professor |firstname, surname, email, gender, gender_symbol | course_profs, courses |
 | term |  a term | firstday, lastday, title, critical, longtitle | forms, courses, course_profs, tutors, faculties |
 | tutor | tutor | abbr_name, comment | course, pics, form, faculty, term |
+
+## Result uploading
+
+For Uploading

@@ -1,5 +1,5 @@
 class Api::TermResource < JSONAPI::Resource
-  attributes :firstday, :lastday, :title, :critical, :longtitle
+  attributes :firstday, :lastday, :title, :critical, :longtitle, :barcodes
   has_many :forms
   has_many :courses
   has_many :course_profs
