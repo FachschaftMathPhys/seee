@@ -2,6 +2,7 @@
 
 class CPic < ApplicationRecord
   belongs_to :course_prof, :inverse_of => :c_pics
+  belongs_to :sheet
   has_one :course, :through => :course_prof
   has_one :term, :through => :course_prof
 

@@ -2,6 +2,7 @@
 
 class Pic < ApplicationRecord
   belongs_to :tutor, :inverse_of => :pics
+  belongs_to :sheet,:inverse_of=>:pics
   has_one :course, :through => :tutor
   has_one :term, :through => :tutor
 

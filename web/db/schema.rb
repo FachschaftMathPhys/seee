@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130110093720) do
+ActiveRecord::Schema.define(version: 20180417202641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,9 @@ ActiveRecord::Schema.define(version: 20130110093720) do
     t.string "source", limit: 255
     t.text "text"
     t.integer "step"
+    t.binary "data"
+    t.bigint "sheet_id"
+    t.index ["sheet_id"], name: "index_c_pics_on_sheet_id"
   end
 
   create_table "course_profs", id: :serial, force: :cascade do |t|
@@ -71,6 +74,9 @@ ActiveRecord::Schema.define(version: 20130110093720) do
     t.string "source", limit: 255
     t.text "text"
     t.integer "step"
+    t.binary "data"
+    t.bigint "sheet_id"
+    t.index ["sheet_id"], name: "index_pics_on_sheet_id"
   end
 
   create_table "profs", id: :serial, force: :cascade do |t|
@@ -82,6 +88,16 @@ ActiveRecord::Schema.define(version: 20130110093720) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "scans", force: :cascade do |t|
+    t.bigint "sheet_id"
+    t.string "attachable_type"
+    t.bigint "attachable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attachable_type", "attachable_id"], name: "index_scans_on_attachable_type_and_attachable_id"
+    t.index ["sheet_id"], name: "index_scans_on_sheet_id"
+  end
+
   create_table "sessions", id: :serial, force: :cascade do |t|
     t.string "ident", limit: 255
     t.string "cont", limit: 255
@@ -91,6 +107,14 @@ ActiveRecord::Schema.define(version: 20130110093720) do
     t.string "ip", limit: 255
     t.string "agent", limit: 255
     t.string "username", limit: 255
+  end
+
+  create_table "sheets", force: :cascade do |t|
+    t.string "uid"
+    t.binary "data"
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "terms", id: :serial, force: :cascade do |t|
@@ -111,4 +135,7 @@ ActiveRecord::Schema.define(version: 20130110093720) do
     t.text "comment"
   end
 
+  add_foreign_key "c_pics", "sheets"
+  add_foreign_key "pics", "sheets"
+  add_foreign_key "scans", "sheets"
 end

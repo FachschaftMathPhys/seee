@@ -1,6 +1,30 @@
 # encoding: utf-8
 
 Seee::Application.routes.draw do
+  namespace :api do
+    jsonapi_resources :forms
+    jsonapi_resources :terms
+    jsonapi_resources :course_profs
+    jsonapi_resources :courses
+    jsonapi_resources :faculties
+    jsonapi_resources :c_pics
+    jsonapi_resources :pics
+    jsonapi_resources :profs
+    resources :results do
+      post "/failed_questions" => "results#failed_questions"
+      post "/value" => "results#value"
+      put "/update_value" => "results#update_value"
+      post "/current_value" => "results#current_value"
+      post "/fp" => "results#fp"
+      post "/count_txt" => "results#count_txt"
+      put "/update_txt" => "results#update_txt"
+      post "/find_tutor" => "results#find_tutor"
+    end
+    resources :resultpages
+    jsonapi_resources :sheets
+    jsonapi_resources :terms
+    jsonapi_resources :tutors
+  end
   resources :forms do
     member do
       get "/copy_to_current" => "forms#copy_to_current"
@@ -38,7 +62,8 @@ Seee::Application.routes.draw do
   # comment image source pass throughs
   get "/pics/:id/download" => "pics#download", :as => :download_pic
   get "/cpics/:id/download" => "cpics#download", :as => :download_cpic
-
+  get "/pics/:id/picture" => "pics#picture", :as => :picture_pic
+  get "/cpics/:id/picture" => "cpics#picture", :as => :picture_cpic
 
   get "/hitme" => "hitmes#overview"
   get "/hitme/assign_work" => "hitmes#assign_work"

@@ -17,7 +17,6 @@ class Term < ApplicationRecord
     d = Date.today
     where(["firstday <= ? AND lastday >= ?", d, d])
   end
-
   def self.currently_active_forms
     Term.currently_active.map { |t| t.forms }.flatten
   end

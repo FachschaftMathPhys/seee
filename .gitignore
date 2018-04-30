@@ -3,7 +3,7 @@
 custom_build/build_*
 tmp/
 web/log/
-
+custom_build/
 ### asset and other cache files
 web/public/assets/*
 web/public/*.html

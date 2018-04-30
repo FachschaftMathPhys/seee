@@ -14,14 +14,5 @@
   <pre>
 # Generate forms:
 rake forms:generate[<%=@term.id%>]
-
-# Generate result PDFs for each faculty:
-<% @term.faculties.each do |f| %>
-rake results:pdf_report["en", <%=@term.id%>, <%=f.id%>]
-<% end %>
-
-# Alternatively, generate result PDFs for each course:
-<% @term.faculties.each do |f| %>
-rake results:pdf_singles[<%=@term.id%>, <%=f.id%>]
-<% end %></pre>
+</pre>
 </div>
