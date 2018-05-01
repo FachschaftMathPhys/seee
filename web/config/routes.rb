@@ -16,6 +16,8 @@ Seee::Application.routes.draw do
       put "/update_value" => "results#update_value"
       post "/current_value" => "results#current_value"
       post "/fp" => "results#fp"
+      post "/count" => "results#count"
+      post "/count_avg_stddev" =>"results#count_avg_stddev"
       post "/count_txt" => "results#count_txt"
       put "/update_txt" => "results#update_txt"
       post "/find_tutor" => "results#find_tutor"
