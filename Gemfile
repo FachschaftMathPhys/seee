@@ -73,3 +73,4 @@ gem 'jquery-ace-rails'
 gem 'coffee-rails'
 gem 'jsonapi-resources'
 gem "byebug"
+gem "tzinfo-data"

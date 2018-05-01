@@ -10,28 +10,25 @@
 # precedence over this default file. To start your own configuration
 # file, simply copy the contents below.
 ########################################################################
-
-login: &login
-  adapter:  postgresql
-  username: postgres
-#  password: <%= Seee::Config.external_database[:password] %>
-  host:     localhost
+default: &default
+  adapter: <%= ENV['PRODUCTION_DATABASE_ADAPTER'] %>
+  encoding: unicode
+  pool: 5
 
 development:
-  <<: *login
-  database: rails
+  <<: *default
+  database: <%= ENV['PRODUCTION_DATABASE_DATABASE'] %>
 
-production:
-  <<: *login
-  database: rails
-
-# Warning: The database defined as 'test' will be erased and
-# re-generated from your development database when you run 'rake'.
-# Do not set this db to the same as development or production.
 test:
-  adapter: sqlite3
-  encoding: utf8
-  database: db/test.db
+  <<: *default
+  database: kummerkasten_test
+production:
+  <<: *default
+  host: <%= ENV['PRODUCTION_DATABASE_HOST'] %>
+  port: <%= ENV['PRODUCTION_DATABASE_PORT'] %>
+  database: <%= ENV['PRODUCTION_DATABASE_DATABASE'] %>
+  username: <%= ENV['PRODUCTION_DATABASE_USERNAME'] %>
+  password: <%= ENV['PRODUCTION_DATABASE_PASSWORD'] %>
 
 # Load configuration files from other directories.
 <% system_config = File.expand_path(system_config) %>
