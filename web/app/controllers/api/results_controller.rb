@@ -77,6 +77,27 @@ class Api::ResultsController < ActionController::Base
     d = {data:{id:t,attributes:{res:res}}}
     render json: d
   end
+  def count_avg_stddev
+    params.permit!
+    table = params[:result_id]
+    column = params[:column]
+    where_hash = params[:where_hash].to_hash
+    answ = RT.count_avg_stddev(table,column, where_hash)
+    p answ
+    d ={ data: {id: table, attributes:{res:answ}}}
+    render json: d
+  end
+  def count
+    params.permit!
+    table = params[:result_id]
+    group = params[:group]
+    where_hash = params[:where_hash].to_hash
+    skip_null = params[:skip_null]
+    answ = RT.count(table, where_hash, group, skip_null)
+    p answ
+    d ={ data: {id: table, attributes:{res:answ}}}
+    render json: d
+  end
   def count_txt
     table = params[:result_id]
     col = params[:col]
