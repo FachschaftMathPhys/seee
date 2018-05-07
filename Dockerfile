@@ -8,7 +8,7 @@ RUN /pd_build/ruby-2.4.1.sh
 
 RUN apt-get update && apt-get install -qq -y --no-install-recommends \
 build-essential  libpq-dev wget git cron libmagick++-dev
-
+RUN rvm install "ruby-2.5"
 ENV HOME /root
 
 # Use baseimage-docker's init process.

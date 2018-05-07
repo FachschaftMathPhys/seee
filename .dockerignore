@@ -1,0 +1,3 @@
+tmp/**
+development.env
+web/tmp
