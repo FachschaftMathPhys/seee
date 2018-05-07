@@ -1,14 +1,12 @@
 
-FROM phusion/passenger-customizable
+FROM phusion/passenger-full
 LABEL vendor="Fachschaft MathPhys"
 MAINTAINER Henrik Reinstädtler <henrik@mathphys.stura.uni-heidelberg.de>
-RUN ls /pd_build/
-RUN /pd_build/ruby-2.4.1.sh
+RUN bash -lc 'rvm --default use ruby-2.5.1'
 
 
 RUN apt-get update && apt-get install -qq -y --no-install-recommends \
 build-essential  libpq-dev wget git cron libmagick++-dev
-RUN rvm install "ruby-2.5"
 ENV HOME /root
 
 # Use baseimage-docker's init process.
