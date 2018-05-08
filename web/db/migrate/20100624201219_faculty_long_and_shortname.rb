@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class FacultyLongAndShortname < ActiveRecord::Migration
+class FacultyLongAndShortname < ActiveRecord::Migration[4.2]
   def self.up
     rename_column :faculties, :name, :longname
     add_column :faculties, :shortname, :string

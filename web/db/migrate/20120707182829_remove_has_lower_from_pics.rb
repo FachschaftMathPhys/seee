@@ -1,4 +1,4 @@
-class RemoveHasLowerFromPics < ActiveRecord::Migration
+class RemoveHasLowerFromPics < ActiveRecord::Migration[4.2]
   def up
     remove_column :pics, :has_lower
       end

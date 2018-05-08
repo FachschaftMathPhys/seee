@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class CreateForms < ActiveRecord::Migration
+class CreateForms < ActiveRecord::Migration[4.2]
   def self.up
     create_table :forms do |t|
       t.references :semester

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class AddContactInformation < ActiveRecord::Migration
+class AddContactInformation < ActiveRecord::Migration[4.2]
   def self.up
     add_column :courses, :fscontact, :string
   end

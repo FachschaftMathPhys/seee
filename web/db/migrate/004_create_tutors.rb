@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class CreateTutors < ActiveRecord::Migration
+class CreateTutors < ActiveRecord::Migration[4.2]
   def self.up
     create_table :tutors do |t|
       t.references :course

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class CreateProfs < ActiveRecord::Migration
+class CreateProfs < ActiveRecord::Migration[4.2]
   def self.up
     create_table :profs do |t|
       t.string :firstname

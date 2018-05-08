@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class AddPics < ActiveRecord::Migration
+class AddPics < ActiveRecord::Migration[4.2]
   def self.up
     create_table :pics do |t|
       t.references :tutor

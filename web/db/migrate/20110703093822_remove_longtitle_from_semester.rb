@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class RemoveLongtitleFromSemester < ActiveRecord::Migration
+class RemoveLongtitleFromSemester < ActiveRecord::Migration[4.2]
   def self.up
     remove_column :semesters, :role
   end

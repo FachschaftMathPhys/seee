@@ -1,3 +1,4 @@
 tmp/**
 development.env
 web/tmp
+.ruby-version

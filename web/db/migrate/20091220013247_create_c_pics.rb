@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class CreateCPics < ActiveRecord::Migration
+class CreateCPics < ActiveRecord::Migration[4.2]
   def self.up
     create_table :c_pics do |t|
       t.string :basename

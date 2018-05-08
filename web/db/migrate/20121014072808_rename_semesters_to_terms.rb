@@ -1,4 +1,4 @@
-class RenameSemestersToTerms < ActiveRecord::Migration
+class RenameSemestersToTerms < ActiveRecord::Migration[4.2]
   def change
     rename_table :semesters, :terms
     rename_column :courses, :semester_id, :term_id

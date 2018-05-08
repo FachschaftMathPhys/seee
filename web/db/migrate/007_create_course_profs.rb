@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class CreateCourseProfs < ActiveRecord::Migration
+class CreateCourseProfs < ActiveRecord::Migration[4.2]
   def self.up
     create_table :course_profs do |t|
       t.references :course

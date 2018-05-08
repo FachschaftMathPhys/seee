@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class CreateSemesters < ActiveRecord::Migration
+class CreateSemesters < ActiveRecord::Migration[4.2]
   def self.up
     create_table :semesters do |t|
       t.date :firstday

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class CreateFaculties < ActiveRecord::Migration
+class CreateFaculties < ActiveRecord::Migration[4.2]
   def self.up
     create_table :faculties do |t|
       t.string :name

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class CreateCourses < ActiveRecord::Migration
+class CreateCourses < ActiveRecord::Migration[4.2]
   def self.up
     create_table :courses do |t|
       t.references :semester
