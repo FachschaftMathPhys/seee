@@ -1,12 +1,11 @@
-
-FROM phusion/passenger-full
+FROM phusion/passenger-ruby25
 LABEL vendor="Fachschaft MathPhys"
 MAINTAINER Henrik Reinstädtler <henrik@mathphys.stura.uni-heidelberg.de>
-RUN bash -lc 'rvm --default use ruby-2.5.1'
+
 
 
 RUN apt-get update && apt-get install -qq -y --no-install-recommends \
-build-essential  libpq-dev wget git cron libmagick++-dev
+build-essential  libpq-dev wget git cron libmagick++-dev texlive-xetex
 ENV HOME /root
 
 # Use baseimage-docker's init process.
@@ -25,7 +24,6 @@ RUN gem install bundler
 RUN DEBUG_RESOLVER=1 bundler install --binstubs --verbose
 #und den rest kopieren
 COPY . ..
-RUN rm -rf /kummerkasten/tmp/pids
 RUN rm -f /etc/service/nginx/down
 ADD webapp.conf /etc/nginx/sites-enabled/webapp.conf
 ADD postgres-env.conf /etc/nginx/main.d/postgres-env.conf
