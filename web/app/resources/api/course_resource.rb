@@ -7,6 +7,12 @@ class Api::CourseResource < JSONAPI::Resource
   has_many :profs
   has_many :c_pics
   has_many :tutors
+  filter :faculty_id, apply: ->(records, value, _options) {
+    return records.where(faculty_id: value)
+  }
+  filter :term_id, apply: ->(records, value, _options) {
+    return records.where( term_id:value)
+  }
   def creatable_fields
     super -[:returned_sheets]
   end

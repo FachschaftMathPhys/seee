@@ -103,9 +103,10 @@ module Seee
     # external database (i.e. not the Rails one) which stores the real eval data
     @@external_database = {
       :dbi_handler => 'Pg',
-      :username => 'gnt-eval',
-      :password => 'gnt-eval',
-      :database => 'results'
+      :username => ENV['PRODUCTION_DATABASE_RESULT_USERNAME'],
+      :password => ENV['PRODUCTION_DATABASE_RESULT_PASSWORD'],
+      :database => ENV['PRODUCTION_DATABASE_RESULT_DATABASE'],
+      :host => ENV['PRODUCTION_DATABASE_RESULT_HOST']
     }
 
     @@settings = {
