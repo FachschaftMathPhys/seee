@@ -39,4 +39,6 @@ Seee::Application.configure do
 
   # Turn off asset serve logging
   config.assets.logger = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = { :address => ENV["SMTP_ADDRESS"], :port => ENV["SMTP_PORT"] }
 end

@@ -111,9 +111,9 @@ module Seee
 
     @@settings = {
       # default recipient's FQDN
-      :standard_mail_domain => 'some.domain.name.asdf',
-      :standard_mail_from => 'evaluation@some.domain.name.asdf',
-      :standard_mail_bcc => 'evaluation@some.domain.name.asdf',
+      :standard_mail_domain => 'mathphys.stura.uni-heidelberg.de',
+      :standard_mail_from => 'evaluation@mathphys.stura.uni-heidelberg.de',
+      :standard_mail_bcc => 'evaluation@mathphys.stura.uni-heidelberg.de',
 
       # who is responsible for the resulting PDF files? _headline will
       # be displayed at the title page, _pdf will be put into PDF meta

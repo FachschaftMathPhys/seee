@@ -5,7 +5,7 @@ MAINTAINER Henrik Reinstädtler <henrik@mathphys.stura.uni-heidelberg.de>
 
 
 RUN apt-get update && apt-get install -qq -y --no-install-recommends \
-build-essential  libpq-dev wget git cron libmagick++-dev texlive-xetex
+build-essential  libpq-dev wget git cron libmagick++-dev texlive-xetex texlive-generic-recommended texlive-pstricks graphicsmagick-imagemagick-compat
 ENV HOME /root
 
 # Use baseimage-docker's init process.
@@ -30,3 +30,7 @@ ADD postgres-env.conf /etc/nginx/main.d/postgres-env.conf
 # Queue classic für mails
 RUN chown -R app /home/app
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# Enable ssh
+RUN rm -f /etc/service/sshd/down
+ADD id_root.pub /tmp/your_key.pub
+RUN cat /tmp/your_key.pub >> /root/.ssh/authorized_keys && rm -f /tmp/your_key.pub
