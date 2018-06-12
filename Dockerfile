@@ -1,4 +1,4 @@
-FROM phusion/passenger-ruby25
+FROM phusion/passenger-ruby24
 LABEL vendor="Fachschaft MathPhys"
 MAINTAINER Henrik Reinstädtler <henrik@mathphys.stura.uni-heidelberg.de>
 
@@ -6,7 +6,7 @@ MAINTAINER Henrik Reinstädtler <henrik@mathphys.stura.uni-heidelberg.de>
 
 RUN apt-get update && apt-get install -qq -y --no-install-recommends \
 build-essential  libpq-dev wget git cron libmagick++-dev texlive-xetex \
-texlive-generic-recommended texlive-pstricks graphicsmagick-imagemagick-compat texlive-full ruby-dev
+texlive-generic-recommended texlive-pstricks graphicsmagick-imagemagick-compat ruby-dev
 
 ENV HOME /root
 

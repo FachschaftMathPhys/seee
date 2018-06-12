@@ -56,15 +56,6 @@ group :rakefiles do
   gem "mechanize" # only used in rakefiles/import.rb
   gem "text" # only used in rakefiles/import.rb via lib/friends.rb
 end
-
-# gems required for OMR
-group :pest do
-  gem "pkg-config"
-  gem "cairo"
-  gem "glib2", "~> 3.2.1"
-  gem 'gtk2'
-  gem "rmagick", :require => "RMagick"
-end
  gem 'spring', group: :development
 gem 'jquery-migrate-rails'
 gem 'rails-perftest'
