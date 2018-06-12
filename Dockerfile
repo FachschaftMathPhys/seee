@@ -6,7 +6,7 @@ MAINTAINER Henrik Reinstädtler <henrik@mathphys.stura.uni-heidelberg.de>
 
 RUN apt-get update && apt-get install -qq -y --no-install-recommends \
 build-essential  libpq-dev wget git cron libmagick++-dev texlive-xetex \
-texlive-generic-recommended texlive-pstricks graphicsmagick-imagemagick-compat texlive-full
+texlive-generic-recommended texlive-pstricks graphicsmagick-imagemagick-compat texlive-full ruby-dev
 
 ENV HOME /root
 
