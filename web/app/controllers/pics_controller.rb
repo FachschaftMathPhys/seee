@@ -9,6 +9,6 @@ class PicsController < ApplicationController
   end
   def picture
     @pic = Pic.find(params[:id])
-    send_data(@cpic.data,filename:@pic.basename)
+    send_data(@pic.data,filename:@pic.basename)
   end
 end
