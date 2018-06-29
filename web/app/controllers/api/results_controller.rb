@@ -55,6 +55,7 @@ class Api::ResultsController < ActionController::Base
     unless ex.empty?
       form = RT.custom_query("SELECT abstract_form FROM #{t}", [], true)
       p form
+      form ||={}
       form[:exists]=true
       d = {data:{id:t,attributes:form}}
     end
@@ -96,6 +97,7 @@ class Api::ResultsController < ActionController::Base
     answ = RT.count(table, where_hash, group, skip_null)
     p answ
     d ={ data: {id: table, attributes:{res:answ}}}
+    p d
     render json: d
   end
   def count_txt
