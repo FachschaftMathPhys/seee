@@ -21,7 +21,6 @@
 //= require hold_button
 //= require jquery.tablesorter.min
 //= require tablemagic
-//= require jquery.uitablefilter
 //= require jquery-ui-timepicker-addon
 //= require jquery-ui-timepicker-addon
 //= require combobox
