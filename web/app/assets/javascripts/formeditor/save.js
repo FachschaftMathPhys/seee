@@ -15,6 +15,7 @@
 /* @public
  * Inits the ajax save action for the current forms. Returns nothing
  * and does not block until the form is saved. */
+var $formHasBeenEdited=0;
 FormEditor.prototype.save = function() {
   if($("#save").hasClass("disabled")) return;
   this.updateSaveButton(false);
